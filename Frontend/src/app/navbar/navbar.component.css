@@ -1,0 +1,45 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .brand {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .nav-options {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-options a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .auth-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .signup,
+  .signin {
+    padding: 6px 12px;
+    border: none;
+    background-color: #ff9800;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .signup:hover,
+  .signin:hover {
+    background-color: #e57373;
+  }
+  
