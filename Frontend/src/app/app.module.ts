@@ -13,6 +13,14 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { FooterComponent } from './footer/footer.component';
+import { AllCoursesComponent } from './all-courses/all-courses.component';
+import { CarouselModule } from 'primeng/carousel';
+import { AssignmentsComponent } from './assignments/assignments.component';
+import { MycoursesComponent } from './mycourses/mycourses.component';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { SingleAssignmentComponent } from './single-assignment/single-assignment.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +29,10 @@ import { FooterComponent } from './footer/footer.component';
     SignInComponent,
     NavbarComponent,
     FooterComponent,
+    AllCoursesComponent,
+    AssignmentsComponent,
+    MycoursesComponent,
+    SingleAssignmentComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +43,11 @@ import { FooterComponent } from './footer/footer.component';
     ButtonModule,
     CalendarModule,
     FormsModule,
-    InputTextModule
+    InputTextModule,
+    CarouselModule,
+    SelectButtonModule,
+    DropdownModule,
+    InputNumberModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

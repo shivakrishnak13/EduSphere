@@ -1,7 +1,12 @@
 .footer {
-    background-color: #333;
-    color: #fff;
+  background-color: #6558d3;
+      color: #fff;
     padding: 40px 0;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 200px auto;
   }
   
   .container {

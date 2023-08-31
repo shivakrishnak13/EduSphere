@@ -1,30 +1,20 @@
-
-<head>
+<div class="main">
+  <form class="form">
+    <p class="title">Student Login </p>
+    <p class="message">Signin now and get full access to our app. </p>
     
-    <title>Sign-In</title>
-</head>
-<body>
-    <div class="signup-form">
-        <h2>Sign In</h2>
-        <form>
-      
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon">
-              <i class="pi pi-envelope"></i>
-            </span>
-            <input pInputText placeholder="Email">
-          </div>
-      
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon">
-              <i class="pi pi-lock"></i>
-            </span>
-            <input type="password" pInputText placeholder="Password">
-          </div>
-      
-
-          <button pButton type="button" label="Sign In"></button>
-        </form>
-      </div>
-      
-</body>
+            
+    <label>
+        <input required="" placeholder="" type="email" class="input">
+        <span>Email</span>
+    </label> 
+        
+    <label>
+        <input required="" placeholder="" type="password" class="input">
+        <span>Password</span>
+    </label>
+  
+    <button class="submit">Sign In</button>
+    <p class="signin">Create a account ? <a routerLink="/sign-up">Signup</a> </p>
+  </form>
+</div>

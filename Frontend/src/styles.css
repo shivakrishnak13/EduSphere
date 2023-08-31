@@ -4,11 +4,12 @@
 /* styles.css or styles.scss */
 
 @import 'primeicons/primeicons.css';
-
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 body {
     font-family: var(--font-family);
     background-color: #F7F7F7;
     height: 100vh;
     margin: 0;
     padding: 0;
+    font-family: 'Quicksand', sans-serif;
 }

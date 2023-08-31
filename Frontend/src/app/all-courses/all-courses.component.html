@@ -1,0 +1,73 @@
+<title>All Courses</title>
+
+<div class="departmentscard" *ngFor="let dept of departments">
+
+  <div class="headers">
+    <i class="pi pi-book" style="font-size: 1.5rem; margin-right: 10px;"></i>
+    <header class="login">{{ dept.dept_name }}</header>
+  </div>
+
+  <div class="card">
+    <p-carousel
+      [value]="dept.courses"
+      [numVisible]="3"
+      [numScroll]="3"
+      [circular]="true"
+      [responsiveOptions]="responsiveOptions"
+      autoPlayInterval="3000"
+      autoPlay="true"
+    >
+      <ng-template let-course pTemplate="item">
+        
+        <div class="plan">
+            <div class="inner">
+                <span class="pricing">
+                    <span>
+                        ₹0 <small>/ m</small>
+                    </span>
+                </span>
+                <p class="title">{{course.course_name}}</p>
+                <p class="info">{{course.description}}</p>
+                <ul class="features">
+                    <li>
+                        <span class="icon">
+                            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                <path fill="currentColor" d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"></path>
+                            </svg>
+                        </span>
+                        <span><strong>Empower with Experts </strong> </span>
+                    </li>
+                    <li>
+                        <span class="icon">
+                            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                <path fill="currentColor" d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"></path>
+                            </svg>
+                        </span>
+                        <span> <strong>Nurture Growth</strong></span>
+                    </li>
+                    <li>
+                        <span class="icon">
+                            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                <path fill="currentColor" d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"></path>
+                            </svg>
+                        </span>
+                        <span><strong> Inspire Lifelong Learning</strong></span>
+                    </li>
+                </ul>
+                <div class="action">
+                <a class="button" href="#">
+                    Enroll Now
+                </a>
+                </div>
+            </div>
+        </div>
+
+
+
+      </ng-template>
+    </p-carousel>
+  </div>
+</div>

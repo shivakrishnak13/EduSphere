@@ -1,0 +1,20 @@
+<title>My Courses</title>
+
+<div class="main">
+
+    <div class="card"*ngFor="let course of courses" >
+        <div class="header">
+            <img src="{{course.image}}" alt="">
+        </div>
+        <div class="content">
+          <h5 class="title">{{course.name}}</h5>
+          <p class="description">{{course.description}}</p>
+        </div>
+        <div class="footer">
+          <button type="button" class="cta-button">Assignments</button>
+        </div>
+      </div>
+      
+
+
+</div>

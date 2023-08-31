@@ -1,42 +1,71 @@
-
 <head>
-    
-    <title>Sign-Up</title>
+  <title>Sign-Up</title>
 </head>
-<body>
-    <div class="signup-form">
-        <h2>Sign Up</h2>
-        <form>
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon">
-              <i class="pi pi-user"></i>
-            </span>
-            <input pInputText placeholder="Full Name">
-          </div>
+
+<div class="main">
+  <form class="form">
+    <p class="title">Student Register</p>
+    <p class="message">Signup now and get full access to our all Courses.</p>
+
+    <label>
+      <input required placeholder="" type="text" class="input" />
+      <span>Fullname</span>
+    </label>
+
+    <div class="flex">
+      <p-calendar
+        [(ngModel)]="date"
+        dateFormat="yy-mm-dd"
+        class="calender"
+        [showIcon]="true"
+        placeholder="Date of Birth"
+        [ngModelOptions]="{ standalone: true }"
+      ></p-calendar>
+
+      <!-- <div class="radio-input">
+        <label>
+          <input type="radio" id="value-1" name="value-radio" value="value-1" />
+          <span>Male</span>
+        </label>
+        <label>
+          <input type="radio" id="value-2" name="value-radio" value="value-2" />
+          <span>Female</span>
+        </label>
+        <label>
+          <input type="radio" id="value-3" name="value-radio" value="value-3" />
+          <span>Others</span>
+        </label>
+        <span class="selection"></span>
+      </div> -->
+
       
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon">
-              <i class="pi pi-envelope"></i>
-            </span>
-            <input pInputText placeholder="Email">
-          </div>
+<p-selectButton [options]="paymentOptions" [(ngModel)]="value" [multiple]="false" optionLabel="name" class="opt" optionValue="value"></p-selectButton>
+
+    </div>
+
+    <div class="flex">
       
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon">
-              <i class="pi pi-lock"></i>
-            </span>
-            <input type="password" pInputText placeholder="Password">
-          </div>
-      
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon">
-              <i class="pi pi-lock"></i>
-            </span>
-            <input type="password" pInputText placeholder="Confirm Password">
-          </div>
-      
-          <button pButton type="button" label="Sign Up"></button>
-        </form>
-      </div>
-      
-</body>
+      <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width': '220px'}"  placeholder="Department"></p-dropdown>
+      <label class="phone">
+        <input required placeholder="" type="number" class="input" />
+        <span>Phone Number</span>
+      </label>
+    </div>
+
+    <label>
+      <input required placeholder="" type="email" class="input" />
+      <span>Email</span>
+    </label>
+
+    <label>
+      <input required placeholder="" type="password" class="input" />
+      <span>Password</span>
+    </label>
+    <label>
+      <input required placeholder="" type="password" class="input" />
+      <span>Confirm password</span>
+    </label>
+    <button class="submit">Submit</button>
+    <p class="signin">Already have an account ? <a routerLink="/sign-in">Signin</a></p>
+  </form>
+</div>

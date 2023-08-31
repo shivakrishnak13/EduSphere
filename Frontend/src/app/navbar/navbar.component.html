@@ -1,14 +1,22 @@
 <header class="navbar">
     <div class="brand">EduHub</div>
     <nav class="nav-options">
-      <a routerLink="/dashboard">Dashboard</a>
+      <a routerLink="/">Dashboard</a>
+      <a routerLink="/all-courses">All Courses</a>
       <a routerLink="/assignments">Assignments</a>
       <a routerLink="/announcements">Announcements</a>
     </nav>
     <div class="auth-buttons">
-      <button class="signup">Sign Up</button>
-      <button class="signin">Sign In</button>
+    
+  <button class="button" routerLink="/sign-up">
+    <i class="pi pi-user svg-icon"  style="font-size: 1.2rem"></i>
+    <span class="lable">Sign Up</span>
+  </button>
+  <button class="button" routerLink="/sign-in">
+    <i class="pi pi-user svg-icon" style="font-size: 1.2rem"></i>
+    <span class="lable">Sign In</span>
+  </button>
     </div>
   </header>
-  <router-outlet></router-outlet>
+  <!-- <router-outlet></router-outlet> -->
   
