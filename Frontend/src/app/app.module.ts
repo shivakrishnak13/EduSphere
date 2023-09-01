@@ -21,6 +21,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SingleAssignmentComponent } from './single-assignment/single-assignment.component';
+import { InstructorSignupComponent } from './instructor-signup/instructor-signup.component';
+import { InstructorSigninComponent } from './instructor-signin/instructor-signin.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { SingleAssignmentComponent } from './single-assignment/single-assignment
     AssignmentsComponent,
     MycoursesComponent,
     SingleAssignmentComponent,
+    InstructorSignupComponent,
+    InstructorSigninComponent,
   ],
   imports: [
     BrowserModule,
