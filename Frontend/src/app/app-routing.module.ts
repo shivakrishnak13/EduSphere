@@ -8,6 +8,8 @@ import { MycoursesComponent } from './mycourses/mycourses.component';
 import { SingleAssignmentComponent } from './single-assignment/single-assignment.component';
 import { InstructorSignupComponent } from './instructor-signup/instructor-signup.component';
 import { InstructorSigninComponent } from './instructor-signin/instructor-signin.component';
+import { InstructorAssignmentsComponent } from './instructor-assignments/instructor-assignments.component';
+
 
 const routes: Routes = [
   {path: "sign-up", component: SignUpComponent},
@@ -18,6 +20,7 @@ const routes: Routes = [
   {path: "assignment/:id", component: SingleAssignmentComponent},
   {path: "instructor/signup", component: InstructorSignupComponent},
   {path: "instructor/signin", component: InstructorSigninComponent},
+  {path: "instructor/assignments", component: InstructorAssignmentsComponent},
 
 ];
 

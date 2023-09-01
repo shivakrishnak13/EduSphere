@@ -23,6 +23,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { SingleAssignmentComponent } from './single-assignment/single-assignment.component';
 import { InstructorSignupComponent } from './instructor-signup/instructor-signup.component';
 import { InstructorSigninComponent } from './instructor-signin/instructor-signin.component';
+import { InstructorAssignmentsComponent } from './instructor-assignments/instructor-assignments.component';
+import { TabViewModule } from 'primeng/tabview';
+import { EditorModule } from 'primeng/editor';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,7 @@ import { InstructorSigninComponent } from './instructor-signin/instructor-signin
     SingleAssignmentComponent,
     InstructorSignupComponent,
     InstructorSigninComponent,
+    InstructorAssignmentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +56,8 @@ import { InstructorSigninComponent } from './instructor-signin/instructor-signin
     SelectButtonModule,
     DropdownModule,
     InputNumberModule,
+    TabViewModule,
+    EditorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

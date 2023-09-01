@@ -5,6 +5,12 @@
 
 @import 'primeicons/primeicons.css';
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+/* styles.css */
+@import 'quill/dist/quill.core.css';
+@import 'quill/dist/quill.snow.css'; /* or quill.bubble.css or your preferred theme */
+
+
 body {
     font-family: var(--font-family);
     background-color: #F7F7F7;
