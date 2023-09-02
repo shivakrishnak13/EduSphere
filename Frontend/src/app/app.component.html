@@ -1,0 +1,10 @@
+<app-navbar *ngIf="isStudent"></app-navbar>
+
+<!-- Conditionally render the instructor navbar -->
+<app-instructor-navbar *ngIf="isInstructor"></app-instructor-navbar>
+
+<!-- Display the router outlet for routing content -->
+<router-outlet></router-outlet>
+
+<!-- Display the footer (assuming this is the same for both students and instructors) -->
+<app-footer></app-footer>

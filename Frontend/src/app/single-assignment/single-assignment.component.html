@@ -1,0 +1,21 @@
+<title>Assignment</title>
+
+<div class="main">
+    <h2 class="title">{{assignment.title}}</h2>
+    <div class="duedate">
+        <span>Due Date: <strong>{{assignment.dueDate}}</strong></span>
+    </div>
+    <div class="assignment">
+        <h2>Description :</h2>
+        <pre>{{assignment.description}}</pre>
+    </div>
+    <div class="submit">
+        <span class="p-float-label">
+            <input pInputText id="username" />
+            <label htmlFor="username">Submit Your Link</label>
+        </span>
+        <span class="btn">
+            <p-button label="Submit" class="button" icon="pi pi-check"></p-button>
+        </span>
+    </div>
+</div>

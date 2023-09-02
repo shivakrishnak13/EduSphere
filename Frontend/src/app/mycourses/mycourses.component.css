@@ -1,0 +1,94 @@
+.main {
+    width: 80%;
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+    justify-items: center;
+}
+
+.card {
+    width: 25rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    background-color: white;
+    color: #6b7280;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header {
+    position: relative;
+    margin: 0.5rem 1rem -2.5rem;
+    height: 15rem;
+    border-radius: 1rem;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+   
+  }
+
+  .header>img{
+    width: 100%;
+    border-radius: 1rem;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .content {
+    padding: 1.5rem;
+  }
+  
+  .title {
+    margin-top: 1.8rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #1f2937;
+  }
+  
+  .description {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: inherit;
+    height: 3rem;
+  }
+  
+  .footer {
+    padding: 1rem;
+    padding-top: 0;
+  }
+  
+  .cta-button {
+    border: none;
+    border-radius: 0.25rem;
+    background-color: #3b82f6;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .cta-button:hover {
+    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .cta-button:focus,
+  .cta-button:active {
+    opacity: 0.85;
+    box-shadow: none;
+    outline: none;
+    pointer-events: none;
+  }
+  
+  .cta-button:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    box-shadow: none;
+  }
+  
