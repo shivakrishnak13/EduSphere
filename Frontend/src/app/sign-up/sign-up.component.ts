@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Student } from '../Allmodels.model';
 import { MessageService } from 'primeng/api';
+import { environment } from 'src/environments/environment';
 interface Major {
   name: string;
   value: string;
@@ -85,7 +86,7 @@ export class SignUpComponent implements OnInit {
     }
     console.log(newStudent);
 
-    this.http.post('https://seqli.vercel.app/api/student/signup',newStudent).subscribe((res)=>{
+    this.http.post(`${environment.API_URL}/api/student/signup`,newStudent).subscribe((res)=>{
         console.log(res);
         
     })

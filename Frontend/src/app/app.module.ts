@@ -32,6 +32,11 @@ import { ToastModule } from 'primeng/toast';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { MenubarModule } from 'primeng/menubar';
+import { MessageService } from 'primeng/api';
+import { InstructorNavbarComponent } from './instructor-navbar/instructor-navbar.component';
+import { InstructorDashboardComponent } from './instructor-dashboard/instructor-dashboard.component';
+import { SkeletonModule } from 'primeng/skeleton';
+import { LayoutComponent } from './layout/layout.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +52,9 @@ import { MenubarModule } from 'primeng/menubar';
     InstructorSignupComponent,
     InstructorSigninComponent,
     InstructorAssignmentsComponent,
+    InstructorNavbarComponent,
+    InstructorDashboardComponent,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,9 +76,10 @@ import { MenubarModule } from 'primeng/menubar';
     ToastModule,
     AvatarModule,
     AvatarGroupModule,
-    MenubarModule
+    MenubarModule,
+    SkeletonModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

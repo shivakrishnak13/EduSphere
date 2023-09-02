@@ -24,3 +24,14 @@ export interface AllDepartment {
     name: string;
     courses : Courses[]
 }
+
+export interface MyCourses {
+    dept_id: number;
+    description: string;
+    id: number;
+    image: string;
+    instructor: string;
+    name : string
+}
+
+

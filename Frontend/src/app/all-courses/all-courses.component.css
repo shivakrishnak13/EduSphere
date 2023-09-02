@@ -7,6 +7,12 @@
     padding: 20px;
 }
 
+.flex{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .login {
     width: 100%;
     font-family: sans-serif;
@@ -20,6 +26,9 @@
     margin-top: 20px;
   }
 
+  .depttitle{
+    margin-top: 10px;
+  }
   
   .plan {
     border-radius: 16px;
@@ -65,11 +74,16 @@
   }
   
   .plan .title {
+    
     font-weight: 600;
     font-size: 1.25rem;
     color: #425675;
   }
   
+  .title{
+    height: 30px;
+  }
+
   .plan .title + * {
     margin-top: 0.75rem;
   }
@@ -133,6 +147,7 @@
     width: 100%;
     padding: 0.625em 0.75em;
     text-decoration: none;
+    cursor: pointer;
   }
   
   .plan .button:hover, .plan .button:focus {

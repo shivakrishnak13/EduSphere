@@ -1,21 +1,18 @@
-import { Component,OnInit,ChangeDetectorRef  } from '@angular/core';
+import { Component,ChangeDetectorRef,OnInit } from '@angular/core';
 import { GlobalService } from '../global.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  selector: 'app-instructor-navbar',
+  templateUrl: './instructor-navbar.component.html',
+  styleUrls: ['./instructor-navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
-    
-  isLogin: boolean = false;
-  items : any;
-  constructor(public globalService: GlobalService,private cd: ChangeDetectorRef,private route: ActivatedRoute) {}
+export class InstructorNavbarComponent implements OnInit{
+
+  items : any ;
+  constructor(public globalService: GlobalService,private cd: ChangeDetectorRef) {}
+
 
   ngOnInit(): void {
-    this.isLogin = this.globalService.isStudentLogin;
-
     this.items = [
       {
         label: this.globalService.getStudentLoginDetails()?.name,
@@ -42,7 +39,7 @@ export class NavbarComponent implements OnInit {
         ]
     },
     ]
-
+  
      this.globalService.loginStatus$.subscribe(()=>{
        this.items = [
          {
@@ -70,7 +67,7 @@ export class NavbarComponent implements OnInit {
            ]
        },
        ]
-
+  
      })
     
   }

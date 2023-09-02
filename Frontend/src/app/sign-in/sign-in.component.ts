@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalService } from '../global.service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class SignInComponent implements OnInit {
     }
 
 
-    this.http.post('https://seqli.vercel.app/api/student/signin', credential).subscribe((res: any) => {
+    this.http.post(`${environment.API_URL}/api/student/signin`, credential).subscribe((res: any) => {
 
       if (res?.message === "Login Success") {
 

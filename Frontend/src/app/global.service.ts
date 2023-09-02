@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StudentLogin } from './Allmodels.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,9 +14,11 @@ export class GlobalService {
   }
   private studentLoginDetails : StudentLogin | null;
   private is_StudentLogin: boolean = false;
-  private is_InstructorLogin : boolean = false;
+  public isInstructorLogin : boolean = false;
   public redirectUrl: string | undefined; 
+  private loginStatusSubject = new Subject<void>();
 
+  loginStatus$ = this.loginStatusSubject.asObservable();
   get isStudentLogin(): boolean {
     return this.is_StudentLogin;
   }
@@ -29,6 +32,7 @@ export class GlobalService {
   isStudentLoginSuccess() {
     // Set the property to true and update local storage
     this.isStudentLogin = true;
+    this.loginStatusSubject.next();
   }
 
 
@@ -41,6 +45,21 @@ export class GlobalService {
     this.studentLoginDetails = details;
     // Convert the object to a JSON string and update local storage
     localStorage.setItem('studentLoginDetails', JSON.stringify(details));
+    this.loginStatusSubject.next();
+  }
+
+
+  logout() {
+    // Clear the local storage for is_StudentLogin and studentLoginDetails
+    localStorage.removeItem('is_StudentLogin');
+    localStorage.removeItem('studentLoginDetails');
+
+    // Set is_StudentLogin to false
+    this.isStudentLogin = false;
+
+    // Clear the studentLoginDetails object
+    this.setStudentLoginDetails(null);
+    this.loginStatusSubject.next();
   }
 
 }
