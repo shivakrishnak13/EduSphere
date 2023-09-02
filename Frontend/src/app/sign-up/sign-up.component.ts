@@ -1,39 +1,96 @@
-import { Component } from '@angular/core';
-
-
-interface City {
+import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Student } from '../Allmodels.model';
+import { MessageService } from 'primeng/api';
+interface Major {
   name: string;
-  code: string;
+  value: string;
 }
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+  styleUrls: ['./sign-up.component.css'],
+  providers: [MessageService]
 })
-export class SignUpComponent {
-  date: Date | undefined;
 
-  value!: number;
-    
-    paymentOptions: any[] = [
-        { name: 'Male', value: 1 },
-        { name: 'Female', value: 2 },
-        { name: 'Others', value: 3 }
+
+export class SignUpComponent implements OnInit {
+  dob: string="";
+  name: string ="";
+  major: Major[] | undefined;
+  selectedMajor: Major | undefined;
+  email: string ="";
+  contact_number: string ="";
+  password: string ="";
+  Confirmpassword: string ="";
+  gender!: string;
+
+
+  constructor(private datePipe: DatePipe, private http: HttpClient,private messageService: MessageService) { }
+
+  genders: any[] = [
+    { name: 'Male', value: 'Male' },
+    { name: 'Female', value: 'Female' },
+    { name: 'Others', value: 'Others' }
+  ];
+
+
+
+  ngOnInit(): void {
+    this.major = [
+      { name: 'Computer Science', value: 'Computer Science' },
+      { name: 'Engineering', value: 'Engineering' },
+      { name: 'Electronics', value: 'Electronics' },
+      { name: 'Biotechnology ', value: 'Biotechnology ' },
+      { name: 'Environmental Engineering', value: 'Environmental Engineering' },
+      { name: 'Fine Arts', value: 'Fine Arts' },
+      { name: 'Applied Sciences', value: 'Applied Sciences' },
     ];
 
-    cities: City[] | undefined;
+   
+    // this.http.post('https://seqli.vercel.app/').subscribe((res)=>{
 
-    selectedCity: City | undefined;
+    // })
+  }
 
-    ngOnInit() {
-        this.cities = [
-            { name: 'New York', code: 'NY' },
-            { name: 'Rome', code: 'RM' },
-            { name: 'London', code: 'LDN' },
-            { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
-        ];
+  showTopCenter() {
+    this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Password', detail: 'password and confirmed are not same' });
+  }
+
+  showTopALL() {
+    this.messageService.add({ key: 'tc', severity: 'warn', summary: 'All Feilds are Required', detail: 'Please Fill all Fields' });
+  }
+  
+
+  handleCreate() {
+
+    if(this.name == '' || this.dob == '' || this.email == "" || this.gender == undefined || this.contact_number == "null" || this.password == "" || this.selectedMajor == undefined ){
+        return this.showTopALL();
     }
+
+    if(this.password !== this.Confirmpassword){
+      return this.showTopCenter()
+    }
+   
+    let newStudent: Student = {
+      name: this.name,
+      dob: this.datePipe.transform(this.dob, 'yyyy-MM-dd'),
+      major: `${this.selectedMajor?.value}`,
+      email: this.email,
+      contact_number: `${this.contact_number}`,
+      password: this.password,
+      gender: this.gender,
+    }
+    console.log(newStudent);
+
+    this.http.post('https://seqli.vercel.app/api/student/signup',newStudent).subscribe((res)=>{
+        console.log(res);
+        
+    })
+    
+  }
+
 
 }

@@ -9,15 +9,16 @@ import { SingleAssignmentComponent } from './single-assignment/single-assignment
 import { InstructorSignupComponent } from './instructor-signup/instructor-signup.component';
 import { InstructorSigninComponent } from './instructor-signin/instructor-signin.component';
 import { InstructorAssignmentsComponent } from './instructor-assignments/instructor-assignments.component';
+import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
   {path: "sign-up", component: SignUpComponent},
   {path: "sign-in", component: SignInComponent},
   {path: "all-courses", component: AllCoursesComponent},
-  {path: "assignments", component: AssignmentsComponent},
-  {path: "", component: MycoursesComponent},
-  {path: "assignment/:id", component: SingleAssignmentComponent},
+  {path: "assignments", component: AssignmentsComponent, canActivate : [AuthGuard]},
+  {path: "", component: MycoursesComponent, canActivate : [AuthGuard]},
+  {path: "assignment/:id", component: SingleAssignmentComponent, canActivate : [AuthGuard]},
   {path: "instructor/signup", component: InstructorSignupComponent},
   {path: "instructor/signin", component: InstructorSigninComponent},
   {path: "instructor/assignments", component: InstructorAssignmentsComponent},

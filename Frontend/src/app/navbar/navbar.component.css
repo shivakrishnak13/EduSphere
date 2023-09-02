@@ -88,3 +88,20 @@
     100% {
     }
   }
+  
+  
+  .profile{
+    display: flex;
+   align-items: center;
+  }
+
+  ::ng-deep .custom-menubar{
+    background-color: #6558d3;
+    border: none;
+    color: white;
+    
+  }
+
+  ::ng-deep .custom-menubar .p-menuitem:hover {
+    color: #fff; /* Change to the desired text color */
+  }

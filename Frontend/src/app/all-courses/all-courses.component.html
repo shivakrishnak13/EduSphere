@@ -4,7 +4,7 @@
 
   <div class="headers">
     <i class="pi pi-book" style="font-size: 1.5rem; margin-right: 10px;"></i>
-    <header class="login">{{ dept.dept_name }}</header>
+    <header class="login">{{ dept.name }}</header>
   </div>
 
   <div class="card">
@@ -17,7 +17,7 @@
       autoPlayInterval="3000"
       autoPlay="true"
     >
-      <ng-template let-course pTemplate="item">
+      <ng-template let-courses pTemplate="item">
         
         <div class="plan">
             <div class="inner">
@@ -26,8 +26,8 @@
                         ₹0 <small>/ m</small>
                     </span>
                 </span>
-                <p class="title">{{course.course_name}}</p>
-                <p class="info">{{course.description}}</p>
+                <p class="title">{{courses.name}}</p>
+                <p class="info">{{courses.description}}</p>
                 <ul class="features">
                     <li>
                         <span class="icon">

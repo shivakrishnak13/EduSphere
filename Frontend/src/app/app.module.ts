@@ -26,6 +26,12 @@ import { InstructorSigninComponent } from './instructor-signin/instructor-signin
 import { InstructorAssignmentsComponent } from './instructor-assignments/instructor-assignments.component';
 import { TabViewModule } from 'primeng/tabview';
 import { EditorModule } from 'primeng/editor';
+import { DatePipe } from '@angular/common'; 
+import {HttpClientModule} from '@angular/common/http';
+import { ToastModule } from 'primeng/toast';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { MenubarModule } from 'primeng/menubar';
 
 @NgModule({
   declarations: [
@@ -58,8 +64,13 @@ import { EditorModule } from 'primeng/editor';
     InputNumberModule,
     TabViewModule,
     EditorModule,
+    HttpClientModule,
+    ToastModule,
+    AvatarModule,
+    AvatarGroupModule,
+    MenubarModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
