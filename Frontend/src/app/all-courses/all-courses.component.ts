@@ -59,6 +59,9 @@ export class AllCoursesComponent implements OnInit {
   showEnrolledInfo() {
     this.messageService.add({ key: 'tc', severity: 'info', summary: 'Course Already Enrolled', detail: 'Please Select Another Course' });
   }
+  LogginToEnrolle() {
+    this.messageService.add({ key: 'tc', severity: 'info', summary: 'Please Login', detail: 'To Enroll Courses' });
+  }
 
   showEnrolledSuccess() {
     this.messageService.add({ key: 'bc', severity: 'success', summary: 'Course Enrolled', detail: 'Course Enrolled Succesfull' });
@@ -67,8 +70,12 @@ export class AllCoursesComponent implements OnInit {
 
   enrollCourses(id:number){
 
+    if(!this.globalServices.isStudentLogin){
+       this.LogginToEnrolle();
+    }
 
-      const existed = this.courses.find((el : MyCourses)=> el.id == id)
+
+      const existed = this.courses?.find((el : MyCourses)=> el.id == id);
 
       if(existed){
         return this.showEnrolledInfo()

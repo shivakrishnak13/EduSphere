@@ -3,12 +3,14 @@
   </head>
   
   <div class="main">
-    <form class="form">
+    <p-toast position="top-center" key="tc"></p-toast>
+
+    <form class="form" (submit)="createInstructorProfile()">
       <p class="title">Instructor Register</p>
       <p class="message">Signup now and get full access to our all Courses.</p>
   
       <label>
-        <input required placeholder="" type="text" class="input" />
+        <input required placeholder="" [(ngModel)]="name" type="text" class="input" [ngModelOptions]="{ standalone: true }" />
         <span>Fullname</span>
       </label>
   
@@ -22,47 +24,33 @@
           [ngModelOptions]="{ standalone: true }"
         ></p-calendar>
   
-        <!-- <div class="radio-input">
-          <label>
-            <input type="radio" id="value-1" name="value-radio" value="value-1" />
-            <span>Male</span>
-          </label>
-          <label>
-            <input type="radio" id="value-2" name="value-radio" value="value-2" />
-            <span>Female</span>
-          </label>
-          <label>
-            <input type="radio" id="value-3" name="value-radio" value="value-3" />
-            <span>Others</span>
-          </label>
-          <span class="selection"></span>
-        </div> -->
+       
   
         
-  <p-selectButton [options]="paymentOptions" [(ngModel)]="value" [multiple]="false" optionLabel="name" class="opt" optionValue="value"></p-selectButton>
+  <p-selectButton [options]="genderOptions" [(ngModel)]="gender" [multiple]="false" optionLabel="name" class="opt" [ngModelOptions]="{ standalone: true }" optionValue="value"></p-selectButton>
   
       </div>
   
       <div class="flex">
         
-        <p-dropdown [options]="departments" [(ngModel)]="seletedDepartments" optionLabel="name" [style]="{'width': '220px'}"  placeholder="Select Course"></p-dropdown>
+        <p-dropdown [options]="departments" [(ngModel)]="seletedDepartments" optionLabel="name" [ngModelOptions]="{ standalone: true }" [style]="{'width': '220px'}"  placeholder="Select Course"></p-dropdown>
         <label class="phone">
-          <input required placeholder="" type="number" class="input" />
+          <input required placeholder="" [(ngModel)]="contact_number" type="number" class="input" [ngModelOptions]="{ standalone: true }" />
           <span>Phone Number</span>
         </label>
       </div>
   
       <label>
-        <input required placeholder="" type="email" class="input" />
+        <input required placeholder="" [(ngModel)]="email" type="email" class="input" [ngModelOptions]="{ standalone: true }"/>
         <span>Email</span>
       </label>
   
       <label>
-        <input required placeholder="" type="password" class="input" />
+        <input required placeholder="" [(ngModel)]="password" ype="password" class="input" [ngModelOptions]="{ standalone: true }" />
         <span>Password</span>
       </label>
       <label>
-        <input required placeholder="" type="password" class="input" />
+        <input required placeholder="" [(ngModel)]="Confirmpassword" type="password" class="input" [ngModelOptions]="{ standalone: true }" />
         <span>Confirm password</span>
       </label>
       <button class="submit">Submit</button>
