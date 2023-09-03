@@ -11,6 +11,9 @@ export class GlobalService {
     this.is_StudentLogin = localStorage.getItem('is_StudentLogin') === 'true' || false;
     const storedStudentLoginDetails = localStorage.getItem('studentLoginDetails');
     this.studentLoginDetails = storedStudentLoginDetails ? JSON.parse(storedStudentLoginDetails) : null;
+
+
+    this.isInstructorLogin = localStorage.getItem('isInstructorLogin') === 'true' || false;
   }
   private studentLoginDetails : StudentLogin | null;
   private is_StudentLogin: boolean = false;
@@ -29,9 +32,26 @@ export class GlobalService {
     localStorage.setItem('is_StudentLogin', value.toString());
   }
 
+  get isInstructorLoginFunc(): boolean {
+    return this.is_StudentLogin;
+  }
+
+  set isInstructorLoginFunc(value: boolean) {
+    this.is_StudentLogin = value;
+    // Update local storage when the property is set
+    localStorage.setItem('is_StudentLogin', value.toString());
+  }
+
+
   isStudentLoginSuccess() {
     // Set the property to true and update local storage
     this.isStudentLogin = true;
+    this.loginStatusSubject.next();
+  }
+
+  isInstructorLoginSuccess() {
+    // Set the property to true and update local storage
+    this.isInstructorLoginFunc = true;
     this.loginStatusSubject.next();
   }
 

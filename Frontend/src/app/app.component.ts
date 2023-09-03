@@ -41,8 +41,8 @@ export class AppComponent {
    console.log(url.split("/")[1]);
    
     
-    console.log(this.isStudent,'studen');
-    console.log(this.isInstructor,'instruct');
+    // console.log(this.isStudent,'studen');
+    // console.log(this.isInstructor,'instruct');
     
   }
 }

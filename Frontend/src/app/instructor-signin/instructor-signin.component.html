@@ -1,16 +1,18 @@
 <div class="main">
-    <form class="form">
+    <form class="form" (submit)="handleLogin()">
+      <p-toast position="top-center" key="tc"></p-toast>
+
       <p class="title">Instructor Login </p>
       <p class="message">Signin now and get full access to our app. </p>
       
               
       <label>
-          <input required="" placeholder="" type="email" class="input">
+          <input required="" [(ngModel)]="email" type="email" class="input" [ngModelOptions]="{ standalone: true }">
           <span>Email</span>
       </label> 
           
       <label>
-          <input required="" placeholder="" type="password" class="input">
+          <input [(ngModel)]="password" type="password" class="input" [ngModelOptions]="{ standalone: true }" required>
           <span>Password</span>
       </label>
     
