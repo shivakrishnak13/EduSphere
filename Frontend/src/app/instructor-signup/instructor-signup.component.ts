@@ -14,7 +14,7 @@ interface Department {
   styleUrls: ['./instructor-signup.component.css']
 })
 export class InstructorSignupComponent implements OnInit {
-
+  is_loading: boolean = false;
   name: string | undefined
   date: Date | undefined
   departments: any = [];
@@ -49,15 +49,17 @@ export class InstructorSignupComponent implements OnInit {
   ];
 
   createInstructorProfile() {
-
+    this.is_loading = true;
     let selectCourseid: number = this.seletedDepartments?.id
 
 
     if (this.name == '' || this.email == "" || this.gender == undefined || this.contact_number == "null" || this.password == "" || selectCourseid == undefined) {
+      this.is_loading = false;
       return this.showTopALL();
     }
 
     if (this.password !== this.Confirmpassword) {
+      this.is_loading = false;
       return this.showTopCenter()
     }
 
