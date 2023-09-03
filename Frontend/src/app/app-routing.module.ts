@@ -11,6 +11,7 @@ import { InstructorSigninComponent } from './instructor-signin/instructor-signin
 import { InstructorAssignmentsComponent } from './instructor-assignments/instructor-assignments.component';
 import { AuthGuard } from './auth.guard';
 import { InstructorDashboardComponent } from './instructor-dashboard/instructor-dashboard.component';
+import { InstructorsingleassignComponent } from './instructorsingleassign/instructorsingleassign.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: "instructor/signup", component: InstructorSignupComponent},
   {path: "instructor/signin", component: InstructorSigninComponent},
   {path: "instructor/assignments", component: InstructorAssignmentsComponent},
+  {path: "instructor/assignments/:id", component: InstructorsingleassignComponent},
   {path: "instructor", component: InstructorDashboardComponent},
 
 ];

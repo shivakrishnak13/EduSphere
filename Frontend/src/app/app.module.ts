@@ -37,6 +37,8 @@ import { InstructorNavbarComponent } from './instructor-navbar/instructor-navbar
 import { InstructorDashboardComponent } from './instructor-dashboard/instructor-dashboard.component';
 import { SkeletonModule } from 'primeng/skeleton';
 import { LayoutComponent } from './layout/layout.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { InstructorsingleassignComponent } from './instructorsingleassign/instructorsingleassign.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import { LayoutComponent } from './layout/layout.component';
     InstructorNavbarComponent,
     InstructorDashboardComponent,
     LayoutComponent,
+    InstructorsingleassignComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +80,8 @@ import { LayoutComponent } from './layout/layout.component';
     AvatarModule,
     AvatarGroupModule,
     MenubarModule,
-    SkeletonModule
+    SkeletonModule,
+    ProgressSpinnerModule
   ],
   providers: [DatePipe,MessageService],
   bootstrap: [AppComponent]
