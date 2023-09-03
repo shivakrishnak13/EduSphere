@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { GlobalService } from '../global.service';
+import { DatePipe } from '@angular/common';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-instructor-assignments',
@@ -6,9 +11,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./instructor-assignments.component.css']
 })
 export class InstructorAssignmentsComponent {
-  
-  date : Date | undefined;
-  text : any | undefined;
+
+  date: Date | undefined;
+  text: string = "";
+  name: string | undefined;
+  due_date: string | undefined;
+
+  constructor(private sanitizer: DomSanitizer,private globalService : GlobalService,private datePipe: DatePipe,private http : HttpClient) {}
+
 
   assignments = [
     {
@@ -53,8 +63,36 @@ export class InstructorAssignmentsComponent {
     }
   ];
 
-  handleEditor(){
-    console.log(this.text)
+  sanitizeAndTrustHtml(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
   
+
+
+
+  handleAssignment() {
+
+    const token = this.globalService.getInstructorLoginDetails()?.token ?? '';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token
+    });
+
+    let newAsssignment = {
+      title: this.name,
+      description: this.text,
+      due_date: this.datePipe.transform(this.date, 'yyyy-MM-dd'),
+      course_id : this.globalService.getInstructorLoginDetails()?.course_id 
+    }
+
+      this.http.post(`${environment.API_URL}/api/assignment`,newAsssignment,{headers}).subscribe((res)=>{
+        console.log(res);
+        
+      })
+
+
+    console.log(newAsssignment);
+    
+  }
+
 }

@@ -33,7 +33,7 @@ export class InstructorNavbarComponent implements OnInit{
             {
                 label: 'Sign Out',
                 icon: 'pi pi-fw pi-sign-out',
-                command : ()=> this.globalService.logout()
+                command : ()=> this.globalService.instructorlogout()
                 
             }
         ]
@@ -61,7 +61,7 @@ export class InstructorNavbarComponent implements OnInit{
                {
                    label: 'Sign Out',
                    icon: 'pi pi-fw pi-sign-out',
-                   command : ()=> this.globalService.logout()
+                   command : ()=> this.globalService.instructorlogout()
                    
                }
            ]

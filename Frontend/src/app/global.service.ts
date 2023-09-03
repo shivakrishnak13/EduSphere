@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { StudentLogin } from './Allmodels.model';
+import { InstructorLogin, StudentLogin } from './Allmodels.model';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class GlobalService {
   private studentLoginDetails : StudentLogin | null;
   private is_StudentLogin: boolean = false;
 
-  private instructorLoginDetails : StudentLogin | null;
+  private instructorLoginDetails : InstructorLogin | null;
   public is_InstructorLogin : boolean = false;
 
   public redirectUrl: string | undefined; 
@@ -83,11 +83,11 @@ export class GlobalService {
   }
 
 
-  getInstructorLoginDetails():StudentLogin | null{
+  getInstructorLoginDetails():InstructorLogin | null{
     return this.instructorLoginDetails;
   }
 
-  setInstructorLoginDetails(detail: StudentLogin | null) {
+  setInstructorLoginDetails(detail: InstructorLogin | null) {
     this.instructorLoginDetails= detail ;
     localStorage.setItem('instructorLoginDetails',JSON.stringify(detail));
     this.loginStatusSubject.next()

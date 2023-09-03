@@ -135,7 +135,7 @@
 
       <p-editor [(ngModel)]="text" [style]="{ height: '320px' }"></p-editor>
 
-      <button (click)="handleEditor()">Click</button>
+      <!-- <button (click)="handleEditor()">Click</button> -->
     </p-tabPanel>
 
     <p-tabPanel header="Header II">
@@ -152,6 +152,8 @@
             placeholder="Write here..."
             name="input"
             class="input"
+            [(ngModel)]="name"
+            [ngModelOptions]="{ standalone: true }"
           />
         </div>
 
@@ -160,14 +162,21 @@
           dateFormat="yy-mm-dd"
           class="calender"
           [showIcon]="true"
-          placeholder="Date of Birth"
+          placeholder="Due Date"
           [ngModelOptions]="{ standalone: true }"
         ></p-calendar>
       </div>
-      <p-editor [(ngModel)]="text" [style]="{ height: '320px' }"></p-editor>
+      <p-editor [(ngModel)]="text" [style]="{ height: '620px' }" [ngModelOptions]="{ standalone: true }"></p-editor>
       <div class="flex">
-        <button class="button2">Hover me</button>
+        <button class="button2" (click)="handleAssignment()">Submit</button>
       </div>
+
+      <div [innerHTML]="sanitizeAndTrustHtml(text)">
+
+      </div>
+     
+
+
     </p-tabPanel>
   </p-tabView>
 </div>

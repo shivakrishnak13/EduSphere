@@ -14,6 +14,13 @@ export interface StudentLogin {
     name : string;
     token : string;
 }
+export interface InstructorLogin {
+    course_id : number;
+    id : number;
+    message : string;
+    name : string;
+    token : string;
+}
 export interface Courses {
     id: number;
     name?:string,
