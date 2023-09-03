@@ -18,18 +18,19 @@ interface Major {
 
 
 export class SignUpComponent implements OnInit {
-  dob: string="";
-  name: string ="";
+  dob: string = "";
+  name: string = "";
   major: Major[] | undefined;
   selectedMajor: Major | undefined;
-  email: string ="";
-  contact_number: string ="";
-  password: string ="";
-  Confirmpassword: string ="";
+  email: string = "";
+  contact_number: string = "";
+  password: string = "";
+  Confirmpassword: string = "";
   gender!: string;
 
+  is_loading: boolean = false;
 
-  constructor(private datePipe: DatePipe, private http: HttpClient,private messageService: MessageService) { }
+  constructor(private datePipe: DatePipe, private http: HttpClient, private messageService: MessageService) { }
 
   genders: any[] = [
     { name: 'Male', value: 'Male' },
@@ -50,7 +51,7 @@ export class SignUpComponent implements OnInit {
       { name: 'Applied Sciences', value: 'Applied Sciences' },
     ];
 
-   
+
     // this.http.post('https://seqli.vercel.app/').subscribe((res)=>{
 
     // })
@@ -63,18 +64,21 @@ export class SignUpComponent implements OnInit {
   showTopALL() {
     this.messageService.add({ key: 'tc', severity: 'warn', summary: 'All Feilds are Required', detail: 'Please Fill all Fields' });
   }
-  
+
 
   handleCreate() {
-
-    if(this.name == '' || this.dob == '' || this.email == "" || this.gender == undefined || this.contact_number == "null" || this.password == "" || this.selectedMajor == undefined ){
-        return this.showTopALL();
+    this.is_loading = true;
+    if (this.name == '' || this.dob == '' || this.email == "" || this.gender == undefined || this.contact_number == "null" || this.password == "" || this.selectedMajor == undefined) {
+      this.is_loading = false;
+      return this.showTopALL();
     }
 
-    if(this.password !== this.Confirmpassword){
+
+    if (this.password !== this.Confirmpassword) {
+      this.is_loading = false;
       return this.showTopCenter()
     }
-   
+
     let newStudent: Student = {
       name: this.name,
       dob: this.datePipe.transform(this.dob, 'yyyy-MM-dd'),
@@ -86,11 +90,13 @@ export class SignUpComponent implements OnInit {
     }
     console.log(newStudent);
 
-    this.http.post(`${environment.API_URL}/api/student/signup`,newStudent).subscribe((res)=>{
-        console.log(res);
-        
+    this.http.post(`${environment.API_URL}/api/student/signup`, newStudent).subscribe((res) => {
+      this.is_loading = false;
+
+      console.log(res);
+
     })
-    
+
   }
 
 

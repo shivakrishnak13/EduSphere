@@ -2,7 +2,7 @@
   <title>Sign-Up</title>
 </head>
 
-<div class="main">
+<div class="main" [class.blur]="is_loading">
   <p-toast position="top-center" key="tc"></p-toast>
   <form class="form" (submit)="handleCreate()">
     <p class="title">Student Register</p>
@@ -98,4 +98,21 @@
       Already have an account ? <a routerLink="/sign-in">Signin</a>
     </p>
   </form>
+</div>
+
+<div class="modal-overlay" *ngIf="is_loading">
+  <div class="spinner center"  >
+    <div class="spinner-blade"></div>
+    <div class="spinner-blade"></div>
+    <div class="spinner-blade"></div>
+    <div class="spinner-blade"></div>
+    <div class="spinner-blade"></div>
+    <div class="spinner-blade"></div>
+    <div class="spinner-blade"></div>
+    <div class="spinner-blade"></div>
+    <div class="spinner-blade"></div>
+    <div class="spinner-blade"></div>
+    <div class="spinner-blade"></div>
+    <div class="spinner-blade"></div>
+</div>
 </div>

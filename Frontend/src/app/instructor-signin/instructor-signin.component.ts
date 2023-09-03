@@ -15,9 +15,11 @@ export class InstructorSigninComponent {
   email: string = "";
   password: string = "";
 
-  constructor(private http: HttpClient, private studentLogin: GlobalService, private messageService: MessageService,private router: Router) { }
+  is_loading : boolean = false;
+
+  constructor(private http: HttpClient, private globalservice: GlobalService, private messageService: MessageService,private router: Router) { }
   ngOnInit(): void {
-    console.log({ studentlogin: this.studentLogin.isStudentLogin });
+    console.log({ instructor: this.globalservice.isInstructorLogin });
 
   }
 
@@ -25,9 +27,10 @@ export class InstructorSigninComponent {
     this.messageService.add({ key: 'tc', severity: warn, summary: summary, detail: detail });
   }
   handleLogin() {
-
+    this.is_loading= true;
     if(this.email == "" || this.password == ""){
-      return this.showWarning('info','All Fields are Required','Please All are Fields')
+      this.is_loading= false
+      return this.showWarning('info','All Fields are Required','Please Fill All are Fields')
     }
 
 
@@ -38,29 +41,30 @@ export class InstructorSigninComponent {
 
     console.log(credential);
 
-    // this.http.post(`${environment.API_URL}/api/instructor/signin`, credential).subscribe((res: any) => {
+    this.http.post(`${environment.API_URL}/api/instructor/signin`, credential).subscribe((res: any) => {
 
-    //   if (res?.message === "Login Success") {
-
-    //     this.studentLogin.isStudentLoginSuccess();
-    //     this.studentLogin.setStudentLoginDetails(res);
-
-
-    //     const redirectUrl = this.studentLogin.redirectUrl || '/';
-    //     this.router.navigate([redirectUrl]);
-
-    //     // Clear the redirectUrl in the GlobalService
-    //     this.studentLogin.redirectUrl = undefined;
+      if (res?.message === "Login Success") {
+        this.is_loading= false
+        this.globalservice.isInstructorLoginSuccess();
+        // this.globalservice.setStudentLoginDetails(res);
 
 
-    //   } else {
-    //     this.showWarning('warn','Check Email/Password','Email or Password are incorrect');
-    //   }
+        const redirectUrl = this.globalservice.redirectUrl || '/';
+        this.router.navigate([redirectUrl]);
+
+        // Clear the redirectUrl in the GlobalService
+        this.globalservice.redirectUrl = undefined;
 
 
-    //   console.log(res);
+      } else {
+        this.is_loading= false
+        this.showWarning('warn','Check Email/Password',res.message);
+      }
 
-    // })
+
+      console.log(res);
+
+    })
 
   }
 }

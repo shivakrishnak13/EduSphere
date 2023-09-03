@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
 export class SignInComponent implements OnInit {
   email: string = "";
   password: string = "";
+  is_loading : boolean = false;
 
   constructor(private http: HttpClient, private studentLogin: GlobalService, private messageService: MessageService,private router: Router) { }
   ngOnInit(): void {
@@ -26,6 +27,9 @@ export class SignInComponent implements OnInit {
     this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Check Email/Password', detail: 'Email or Password are incorrect' });
   }
   handleLogin() {
+
+    this.is_loading=true;
+
     let credential = {
       email: this.email,
       password: this.password
@@ -36,6 +40,7 @@ export class SignInComponent implements OnInit {
 
       if (res?.message === "Login Success") {
 
+        this.is_loading = false;
         this.studentLogin.isStudentLoginSuccess();
         this.studentLogin.setStudentLoginDetails(res);
 
@@ -48,6 +53,7 @@ export class SignInComponent implements OnInit {
 
 
       } else {
+        this.is_loading = false
         this.showWarning();
       }
 
