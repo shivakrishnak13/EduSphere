@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MyCourses } from '../Allmodels.model'
 import { MessageService } from 'primeng/api';
+import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 interface Department {
   name: string;
@@ -25,7 +27,7 @@ export class InstructorSignupComponent implements OnInit {
   Confirmpassword: string = "";
   gender!: string;
 
-  constructor(private http: HttpClient, private messageService: MessageService) { }
+  constructor(private http: HttpClient, private messageService: MessageService,private router: Router) { }
 
   ngOnInit(): void {
 
@@ -66,12 +68,18 @@ export class InstructorSignupComponent implements OnInit {
     let newInstructor = {
       name: this.name,
       email: this.email,
-      contactNumber: this.contact_number,
-      courseId: selectCourseid,
+      contact_number: this.contact_number,
+      course_id : selectCourseid,
       gender : this.gender,
       password :this.password 
     }
 
+    this.http.post(`${environment.API_URL}/api/instructor/signup`, newInstructor).subscribe((res)=>{
+      this.is_loading = false;
+        console.log(res);
+        this.router.navigate(['/instructor/signin'])
+    })
+    this.is_loading = false
     console.log(newInstructor);
     
 

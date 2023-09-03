@@ -13,11 +13,16 @@ export class GlobalService {
     this.studentLoginDetails = storedStudentLoginDetails ? JSON.parse(storedStudentLoginDetails) : null;
 
 
-    this.isInstructorLogin = localStorage.getItem('isInstructorLogin') === 'true' || false;
+    this.is_InstructorLogin = localStorage.getItem('isInstructorLogin') === 'true' || false;
+    const storedInstructorLoginDetails = localStorage.getItem('instructorLoginDetails');
+    this.instructorLoginDetails = storedInstructorLoginDetails ? JSON.parse(storedInstructorLoginDetails) : null;
   }
   private studentLoginDetails : StudentLogin | null;
   private is_StudentLogin: boolean = false;
-  public isInstructorLogin : boolean = false;
+
+  private instructorLoginDetails : StudentLogin | null;
+  public is_InstructorLogin : boolean = false;
+
   public redirectUrl: string | undefined; 
   private loginStatusSubject = new Subject<void>();
 
@@ -32,15 +37,7 @@ export class GlobalService {
     localStorage.setItem('is_StudentLogin', value.toString());
   }
 
-  get isInstructorLoginFunc(): boolean {
-    return this.is_StudentLogin;
-  }
-
-  set isInstructorLoginFunc(value: boolean) {
-    this.is_StudentLogin = value;
-    // Update local storage when the property is set
-    localStorage.setItem('is_StudentLogin', value.toString());
-  }
+  
 
 
   isStudentLoginSuccess() {
@@ -48,13 +45,6 @@ export class GlobalService {
     this.isStudentLogin = true;
     this.loginStatusSubject.next();
   }
-
-  isInstructorLoginSuccess() {
-    // Set the property to true and update local storage
-    this.isInstructorLoginFunc = true;
-    this.loginStatusSubject.next();
-  }
-
 
 
   getStudentLoginDetails(): StudentLogin | null {
@@ -79,6 +69,46 @@ export class GlobalService {
 
     // Clear the studentLoginDetails object
     this.setStudentLoginDetails(null);
+    this.loginStatusSubject.next();
+  }
+
+  get isInstructorLogin(): boolean {
+    return this.is_InstructorLogin;
+  }
+
+  set isInstructorLogin(value: boolean) {
+    this.is_InstructorLogin = value;
+    // Update local storage when the property is set
+    localStorage.setItem('isInstructorLogin', value.toString());
+  }
+
+
+  getInstructorLoginDetails():StudentLogin | null{
+    return this.instructorLoginDetails;
+  }
+
+  setInstructorLoginDetails(detail: StudentLogin | null) {
+    this.instructorLoginDetails= detail ;
+    localStorage.setItem('instructorLoginDetails',JSON.stringify(detail));
+    this.loginStatusSubject.next()
+  }
+
+  isInstructorLoginSuccess() {
+    // Set the property to true and update local storage
+    this.isInstructorLogin = true;
+    this.loginStatusSubject.next();
+  }
+
+  instructorlogout() {
+    // Clear the local storage for is_StudentLogin and studentLoginDetails
+    localStorage.removeItem('isInstructorLogin');
+    localStorage.removeItem('instructorLoginDetails');
+
+    // Set is_StudentLogin to false
+    this.isInstructorLogin = false;
+
+    // Clear the studentLoginDetails object
+    this.setInstructorLoginDetails(null);
     this.loginStatusSubject.next();
   }
 

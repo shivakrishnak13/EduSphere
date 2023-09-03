@@ -15,7 +15,7 @@ export class InstructorNavbarComponent implements OnInit{
   ngOnInit(): void {
     this.items = [
       {
-        label: this.globalService.getStudentLoginDetails()?.name,
+        label: this.globalService.getInstructorLoginDetails()?.name,
         icon: '',
         items: [
             {
@@ -43,7 +43,7 @@ export class InstructorNavbarComponent implements OnInit{
      this.globalService.loginStatus$.subscribe(()=>{
        this.items = [
          {
-           label: this.globalService.getStudentLoginDetails()?.name,
+           label: this.globalService.getInstructorLoginDetails()?.name,
            icon: '',
            items: [
                {
@@ -73,7 +73,7 @@ export class InstructorNavbarComponent implements OnInit{
   }
 
   getFirstLetter(): string {
-    const name = this.globalService.getStudentLoginDetails()?.name || '';
+    const name = this.globalService.getInstructorLoginDetails()?.name || '';
     return name.charAt(0).toUpperCase();
   }
 

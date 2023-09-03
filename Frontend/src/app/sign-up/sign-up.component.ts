@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Student } from '../Allmodels.model';
 import { MessageService } from 'primeng/api';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 interface Major {
   name: string;
   value: string;
@@ -30,7 +31,7 @@ export class SignUpComponent implements OnInit {
 
   is_loading: boolean = false;
 
-  constructor(private datePipe: DatePipe, private http: HttpClient, private messageService: MessageService) { }
+  constructor(private datePipe: DatePipe, private http: HttpClient, private messageService: MessageService,private router: Router) { }
 
   genders: any[] = [
     { name: 'Male', value: 'Male' },
@@ -94,7 +95,7 @@ export class SignUpComponent implements OnInit {
       this.is_loading = false;
 
       console.log(res);
-
+      this.router.navigate(['/sign-in'])
     })
 
   }

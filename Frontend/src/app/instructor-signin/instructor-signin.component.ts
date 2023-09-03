@@ -46,10 +46,11 @@ export class InstructorSigninComponent {
       if (res?.message === "Login Success") {
         this.is_loading= false
         this.globalservice.isInstructorLoginSuccess();
+        this.globalservice.setInstructorLoginDetails(res);
         // this.globalservice.setStudentLoginDetails(res);
 
 
-        const redirectUrl = this.globalservice.redirectUrl || '/';
+        const redirectUrl = this.globalservice.redirectUrl || '/instructor';
         this.router.navigate([redirectUrl]);
 
         // Clear the redirectUrl in the GlobalService
