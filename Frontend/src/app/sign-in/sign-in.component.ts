@@ -23,12 +23,19 @@ export class SignInComponent implements OnInit {
 
   }
 
-  showWarning() {
-    this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Check Email/Password', detail: 'Email or Password are incorrect' });
+  showWarning(warn:string,summary: string,detail:string) {
+    this.messageService.add({ key: 'tc', severity: warn, summary: summary, detail: detail });
   }
+
+
   handleLogin() {
 
     this.is_loading=true;
+
+    if(this.email == "" || this.password == ""){
+      this.is_loading= false
+      return this.showWarning('info','All Fields are Required','Please Fill All are Fields')
+    }
 
     let credential = {
       email: this.email,
@@ -53,8 +60,8 @@ export class SignInComponent implements OnInit {
 
 
       } else {
-        this.is_loading = false
-        this.showWarning();
+        this.is_loading= false
+        this.showWarning('warn','Check Email/Password',res.message);
       }
 
 
