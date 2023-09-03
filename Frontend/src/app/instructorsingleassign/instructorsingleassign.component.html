@@ -65,7 +65,18 @@
           [ngModelOptions]="{ standalone: true }"
         ></p-calendar>
       </div>
-       <p-editor [(ngModel)]="text" [style]="{ height: 'max-height' }"></p-editor>
+       <p-editor [(ngModel)]="text" [style]="{ height: 'max-height'}"></p-editor>
+
+      <div class="flex">
+          <button class="updateButton but" (click)="handleAssignmentUpdate(assignment.id)">
+           Update Assignment Details
+           <span>
+               <i class="pi pi-file-edit bi bi-discord" style="font-size: 1.5rem"></i>
+           </span>
+         </button>
+      </div>
+
+
    </ng-template>
 
 </div>
