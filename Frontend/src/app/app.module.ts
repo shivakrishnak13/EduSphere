@@ -39,6 +39,9 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { LayoutComponent } from './layout/layout.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InstructorsingleassignComponent } from './instructorsingleassign/instructorsingleassign.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+
 
 @NgModule({
   declarations: [
@@ -81,9 +84,10 @@ import { InstructorsingleassignComponent } from './instructorsingleassign/instru
     AvatarGroupModule,
     MenubarModule,
     SkeletonModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    ConfirmDialogModule
   ],
-  providers: [DatePipe,MessageService],
+  providers: [DatePipe,MessageService,ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

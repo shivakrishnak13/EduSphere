@@ -12,6 +12,7 @@ import { InstructorAssignmentsComponent } from './instructor-assignments/instruc
 import { AuthGuard } from './auth.guard';
 import { InstructorDashboardComponent } from './instructor-dashboard/instructor-dashboard.component';
 import { InstructorsingleassignComponent } from './instructorsingleassign/instructorsingleassign.component';
+import { InstructorAuthGuard } from './intructor-auth.guard';
 
 
 const routes: Routes = [
@@ -23,8 +24,8 @@ const routes: Routes = [
   {path: "assignment/:id", component: SingleAssignmentComponent, canActivate : [AuthGuard]},
   {path: "instructor/signup", component: InstructorSignupComponent},
   {path: "instructor/signin", component: InstructorSigninComponent},
-  {path: "instructor/assignments", component: InstructorAssignmentsComponent},
-  {path: "instructor/assignments/:id", component: InstructorsingleassignComponent},
+  {path: "instructor/assignments", component: InstructorAssignmentsComponent,canActivate:[InstructorAuthGuard]},
+  {path: "instructor/assignments/:id", component: InstructorsingleassignComponent,canActivate:[InstructorAuthGuard]},
   {path: "instructor", component: InstructorDashboardComponent},
 
 ];

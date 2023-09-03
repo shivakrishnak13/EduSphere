@@ -8,6 +8,7 @@
 
 }
 
+
 .title {
     text-align: center;
     color: #6558d3;
@@ -68,3 +69,137 @@ pre {
     border-radius: 0.5rem;
 }
   
+
+button {
+    width: 160px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    
+   }
+   
+   .red{
+    background: red;
+   }
+
+   .green{
+    background:#67C8F0 ;
+   }
+
+   button, button span {
+    transition: 200ms;
+   }
+   
+   button .text {
+    transform: translateX(35px);
+    color: white;
+    font-weight: bold;
+   }
+   
+   .red .icon {
+    position: absolute;
+    border-left: 1px solid #c41b1b;
+    transform: translateX(110px);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+   }
+   .green .icon {
+    position: absolute;
+    border-left: 1px solid #000000;
+    transform: translateX(110px);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   }
+   
+   button svg {
+    width: 15px;
+    fill: #eee;
+   }
+   
+
+   
+   .red:hover {
+    background: #ff3636;
+   }
+   
+   .green:hover {
+    background: #48bdf0;
+   }
+   
+   button:hover .text {
+    color: transparent;
+   }
+   
+   button:hover .icon {
+    width: 150px;
+    border-left: none;
+    transform: translateX(0);
+   }
+   
+   button:focus {
+    outline: none;
+   }
+   
+   button:active .icon svg {
+    transform: scale(0.8);
+   }
+
+   .buttonsupdatedel{
+    margin: 20px 0 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   }
+
+
+   .coolinput {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    position: static;
+    width: 340px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .coolinput label.text {
+    font-size: 0.75rem;
+    color: #818CF8;
+    font-weight: 700;
+    position: relative;
+    top: 0.5rem;
+    margin: 0 0 0 7px;
+    padding: 0 3px;
+    background: #ffff;
+    width: fit-content;
+  }
+  
+  .coolinput input[type=text].input {
+    padding: 11px 10px;
+    font-size: 1rem;
+    border: 2px #818CF8 solid;
+    border-radius: 5px;
+    background: #ffff;
+    height: 50px;
+  }
+  
+  .coolinput input[type=text].input:focus {
+    outline: none;
+  }
+
+  .assignadd{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }

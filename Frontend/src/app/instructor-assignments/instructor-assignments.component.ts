@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
 export class InstructorAssignmentsComponent implements OnInit {
   assignments : any = [];
   date: Date | undefined;
-  text: string = "";
+  text: string = "<h1>Description here...</h1>";
   name: string | undefined;
   due_date: string | undefined;
   loading : boolean = false;
