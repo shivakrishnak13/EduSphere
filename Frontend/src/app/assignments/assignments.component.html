@@ -4,7 +4,7 @@
 
 <div class="main">
 
-    <div class="card" *ngFor="let assignment of assignments">
+    <div class="card"  *ngFor="let assignment of assignments" [routerLink]="['/assignment',assignment.id]">
                 <div class="img">
                     <svg xmlns="http://www.w3.org/2000/svg" width="80" viewBox="0 0 512 512" height="90" id="Layer_1">
                         <g>
@@ -62,7 +62,7 @@
                      </div>
                   </div>
                  
-                  <span [ngStyle]="{'background-color': assignment.is_completed ? '#00BFA5' : '#FF9800','border-radius': '0.5rem','padding': '5px','color':'white' }" >{{assignment.is_completed? "Completed" : "Not Completed"}}</span>
+                  <span [ngStyle]="{'background-color': assignment.status ? '#00BFA5' : '#FF9800','border-radius': '0.5rem','padding': '5px','color':'white' }" >{{assignment.status? "Completed" : "Not Completed"}}</span>
       </div>
 
 

@@ -14,10 +14,12 @@ export class MycoursesComponent implements OnInit {
 
 
   courses : any = []
-
+  loading : boolean = false;
+  array = new Array(9)
   constructor (private http : HttpClient,private globalServices : GlobalService){}
 
   ngOnInit(): void {
+    this.loading=true;
     const token = this.globalServices.getStudentLoginDetails()?.token ?? '';
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -26,8 +28,13 @@ export class MycoursesComponent implements OnInit {
 
     this.http.get(`${environment.API_URL}/api/course/enrolled/${this.globalServices.getStudentLoginDetails()?.id}`,{headers}).subscribe((res)=>{
       this.courses =res;
+      this.loading=false;
+
     })
+   
 
   }
+
+ 
 
 }

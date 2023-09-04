@@ -1,6 +1,6 @@
 import { Component,OnInit,ChangeDetectorRef  } from '@angular/core';
 import { GlobalService } from '../global.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +11,7 @@ export class NavbarComponent implements OnInit {
     
   isLogin: boolean = false;
   items : any;
-  constructor(public globalService: GlobalService,private cd: ChangeDetectorRef,private route: ActivatedRoute) {}
+  constructor(public globalService: GlobalService,private cd: ChangeDetectorRef,private route: ActivatedRoute,private router : Router) {}
 
   ngOnInit(): void {
     this.isLogin = this.globalService.isStudentLogin;
@@ -36,7 +36,10 @@ export class NavbarComponent implements OnInit {
             {
                 label: 'Sign Out',
                 icon: 'pi pi-fw pi-sign-out',
-                command : ()=> this.globalService.logout()
+                command : ()=>{
+                  this.globalService.logout()
+                  this.router.navigate(['/'])
+                }
                 
             }
         ]

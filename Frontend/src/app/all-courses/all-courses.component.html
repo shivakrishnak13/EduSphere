@@ -1,22 +1,7 @@
 <title>All Courses</title>
 
 <div class="main-container" >
-  <div class="main" *ngIf="is_loading; else content">
-    <div class="departmentscard">
-      <div class="border-round border-1 surface-border p-4 surface-card">
-        <p-skeleton
-          [style]="{ 'margin': '20px 0 20px 80px','padding':'30px' }"
-          width="20rem"
-          styleClass="mb-2"
-        ></p-skeleton>
-        <div class="flex">
-          <p-skeleton width="19rem" height="17rem"></p-skeleton>
-          <p-skeleton width="19rem" height="17rem"></p-skeleton>
-          <p-skeleton width="19rem" height="17rem"></p-skeleton>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
 <ng-template #content>
   <div class="departmentscard" *ngFor="let dept of departments">
@@ -111,3 +96,20 @@
     </div>
   </div>
 </ng-template>
+
+<div class="main" *ngIf="is_loading; else content">
+    <div class="departmentscard"  *ngFor="let i of array">
+      <div class="border-round border-1 surface-border p-4 surface-card">
+        <p-skeleton
+          [style]="{ 'margin': '20px 0 20px 80px','padding':'30px' }"
+          width="20rem"
+          styleClass="mb-2"
+        ></p-skeleton>
+        <div class="flex">
+          <p-skeleton width="19rem" height="17rem"></p-skeleton>
+          <p-skeleton width="19rem" height="17rem"></p-skeleton>
+          <p-skeleton width="19rem" height="17rem"></p-skeleton>
+        </div>
+      </div>
+    </div>
+  </div>
