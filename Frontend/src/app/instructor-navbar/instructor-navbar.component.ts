@@ -1,5 +1,6 @@
 import { Component,ChangeDetectorRef,OnInit } from '@angular/core';
 import { GlobalService } from '../global.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-instructor-navbar',
@@ -9,7 +10,7 @@ import { GlobalService } from '../global.service';
 export class InstructorNavbarComponent implements OnInit{
 
   items : any ;
-  constructor(public globalService: GlobalService,private cd: ChangeDetectorRef) {}
+  constructor(public globalService: GlobalService,private cd: ChangeDetectorRef,private router: Router) {}
 
 
   ngOnInit(): void {
@@ -33,7 +34,10 @@ export class InstructorNavbarComponent implements OnInit{
             {
                 label: 'Sign Out',
                 icon: 'pi pi-fw pi-sign-out',
-                command : ()=> this.globalService.instructorlogout()
+                command : ()=>{
+                  this.globalService.instructorlogout()
+                  this.router.navigate(['/instructor'])
+                }
                 
             }
         ]
@@ -61,7 +65,10 @@ export class InstructorNavbarComponent implements OnInit{
                {
                    label: 'Sign Out',
                    icon: 'pi pi-fw pi-sign-out',
-                   command : ()=> this.globalService.instructorlogout()
+                   command : ()=>{
+                    this.globalService.instructorlogout()
+                    this.router.navigate(['/instructor'])
+                  }
                    
                }
            ]

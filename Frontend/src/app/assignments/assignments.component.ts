@@ -12,13 +12,20 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./assignments.component.css'],
   providers :[ MessageService]
 })
-export class AssignmentsComponent implements OnInit {
 
-  assignments:any = []
+
+export class AssignmentsComponent implements OnInit {
+  courses: any = [];
+  assignments:any = [];
+  selectedCourses: string | undefined;
   constructor(private globalService : GlobalService,private datePipe: DatePipe,private http : HttpClient,private messageService: MessageService,private router : Router,private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.getAllAssigment()
+    this.http.get(`https://seqli.vercel.app/api/instructor/course/available`).subscribe((res) => {
+      this.courses = res
+    })
+
   }
 
   getAllAssigment(){

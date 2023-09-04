@@ -67,7 +67,10 @@ export class NavbarComponent implements OnInit {
                {
                    label: 'Sign Out',
                    icon: 'pi pi-fw pi-sign-out',
-                   command : ()=> this.globalService.logout()
+                   command : ()=>{
+                    this.globalService.logout()
+                    this.router.navigate(['/'])
+                  }
                    
                }
            ]
