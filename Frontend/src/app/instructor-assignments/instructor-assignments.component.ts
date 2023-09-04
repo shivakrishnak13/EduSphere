@@ -1,28 +1,39 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,ViewChild  } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { GlobalService } from '../global.service';
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { MessageService } from 'primeng/api';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TabView } from 'primeng/tabview';
 
 @Component({
   selector: 'app-instructor-assignments',
   templateUrl: './instructor-assignments.component.html',
-  styleUrls: ['./instructor-assignments.component.css']
+  styleUrls: ['./instructor-assignments.component.css'],
+  providers: [MessageService]
 })
 export class InstructorAssignmentsComponent implements OnInit {
+  @ViewChild('tabView') tabView: TabView | undefined;
+
   assignments : any = [];
   date: Date | undefined;
   text: string = "<h1>Description here...</h1>";
   name: string | undefined;
   due_date: string | undefined;
   loading : boolean = false;
-  constructor(private sanitizer: DomSanitizer,private globalService : GlobalService,private datePipe: DatePipe,private http : HttpClient) {}
+  constructor(private globalService : GlobalService,private datePipe: DatePipe,private http : HttpClient,private messageService: MessageService,private router : Router,private route: ActivatedRoute) {}
 
 
   ngOnInit(): void {
 
+    this.getAllAssigment()
+    
+  }
 
+  
+  getAllAssigment(){
     const token = this.globalService.getInstructorLoginDetails()?.token ?? '';
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -35,13 +46,6 @@ export class InstructorAssignmentsComponent implements OnInit {
       
     })
   }
-
-  
-  sanitizeAndTrustHtml(html: string): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(html);
-  }
-  
-
 
 
   handleAssignment() {
@@ -61,13 +65,14 @@ export class InstructorAssignmentsComponent implements OnInit {
 
       this.http.post(`${environment.API_URL}/api/assignment`,newAsssignment,{headers}).subscribe((res)=>{
         this.loading= false;
-        console.log(res);
-        
+        this.messageService.add({ key: 'tc', severity: 'success', summary: 'Assignment', detail: 'Assignment Added' });
+        this.getAllAssigment();
+        if (this.tabView) {
+          console.log(this.tabView);
+          
+          this.tabView.activeIndex = 0;
+        }  
       })
-
-
-    console.log(newAsssignment);
-    
   }
 
 }

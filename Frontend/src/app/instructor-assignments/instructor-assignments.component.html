@@ -1,9 +1,10 @@
 <head>
   <title>Assignments</title>
 </head>
-
 <div class="main">
-  <p-tabView styleClass="tabview-custom">
+  <p-toast position="top-center" key="tc"></p-toast>
+
+  <p-tabView #tabView styleClass="tabview-custom">
     <p-tabPanel>
       <ng-template pTemplate="header">
         <i class="pi pi-book"></i>
@@ -105,7 +106,7 @@
             </g>
           </svg>
         </div>
-
+        
         <!-- <div class="hover_color_bubble"></div> -->
         <div class="detail-section">
           <h2>{{ assignment.title }}</h2>
@@ -144,7 +145,7 @@
         <i class="pi pi-plus-circle"></i>
         <span style="margin-left: 5px">Add Assignments</span>
       </ng-template>
-
+      
       <div class="assignadd">
         <div class="coolinput">
           <label for="input" class="text">Assignment Name:</label>

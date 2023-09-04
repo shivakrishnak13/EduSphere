@@ -71,10 +71,11 @@ export class InstructorsingleassignComponent implements OnInit {
           'Authorization': token
         });
 
-        this.http.delete(`${environment.API_URL}/api/assignment/:id`,{headers}).subscribe((res) => {
+        this.http.delete(`${environment.API_URL}/api/assignment/${id}`,{headers}).subscribe((res) => {
           console.log(res);
           this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Assignment deleted' });
           this.router.navigate(['/instructor/assignments'])
+  
         })
       },
       reject: (type: ConfirmEventType) => {
