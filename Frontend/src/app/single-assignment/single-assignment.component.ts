@@ -1,29 +1,46 @@
-import { Component } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component,OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GlobalService } from '../global.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { DatePipe } from '@angular/common';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-single-assignment',
   templateUrl: './single-assignment.component.html',
   styleUrls: ['./single-assignment.component.css']
 })
-export class SingleAssignmentComponent {
+export class SingleAssignmentComponent implements OnInit {
+
+  isEdit : boolean = false;
   
-  assignment = {
-    id: 1,
-    title: "CSS Grid",
-    description: `
-      Write a CSS Grid layout for the following task:
-      Design a product page layout with the following components:
+  assignment :any = {}
+
+
+  constructor(private http: HttpClient, private route: ActivatedRoute, private globalService: GlobalService, private sanitizer: DomSanitizer, private messageService: MessageService, private confirmationService: ConfirmationService,private router: Router,private datePipe: DatePipe) { }
+
+
+  ngOnInit(): void {
+    this.getAllAssignemnts()
+  }
+
+  sanitizeAndTrustHtml(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
+
+  getAllAssignemnts(){
+    const token = this.globalService.getInstructorLoginDetails()?.token ?? '';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token
+    });
+    const assignmentId = this.route.snapshot.params['id'];
+    this.http.get(`${environment.API_URL}/api/assignment/${assignmentId}`, { headers }).subscribe((res:any) => {
+      this.assignment = res;
       
-      1. Header with logo and navigation menu.
-      2. Product showcase section with images and details.
-      3. Product details and specifications.
-      4. Customer reviews section.
-      5. Footer with contact information and links.
-      
-      Use CSS Grid to arrange these components in a responsive and visually appealing manner.
-      
-      Your solution should consider different screen sizes and provide a consistent user experience.
-    `,
-    dueDate: "2023-09-15"
-  };
+    })
+  }
+
 }

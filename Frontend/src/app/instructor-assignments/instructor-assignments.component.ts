@@ -42,7 +42,7 @@ export class InstructorAssignmentsComponent implements OnInit {
 
     this.http.get(`${environment.API_URL}/api/assignment/course/${this.globalService.getInstructorLoginDetails()?.course_id}`,{headers}).subscribe((res)=>{
       this.assignments = res;
-      console.log(res);
+      // console.log(res);
       
     })
   }
