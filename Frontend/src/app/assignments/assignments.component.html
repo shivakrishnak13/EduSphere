@@ -20,7 +20,7 @@
   
 
  
-
+    <ng-template #content>
     <div class="card"  *ngFor="let assignment of assignments" [routerLink]="['/assignment',assignment.id]">
                 <div class="img">
                     <svg xmlns="http://www.w3.org/2000/svg" width="80" viewBox="0 0 512 512" height="90" id="Layer_1">
@@ -81,8 +81,39 @@
                  
                   <span [ngStyle]="{'background-color': assignment.status ? '#00BFA5' : '#FF9800','border-radius': '0.5rem','padding': '5px','color':'white' }" >{{assignment.status? "Completed" : "Not Completed"}}</span>
       </div>
+    </ng-template>
+
+
+      <div class="loader" *ngIf="!loading; else Empty">
+        <div class="card" *ngFor="let i of array">
+          <div class="img">
+            <p-skeleton width="6rem" height="8rem"></p-skeleton>
+          </div>
+          <div class="detail-section">
+            <p-skeleton styleClass="mb-2" [style]="{'margin':'0 0 10px 0'}"></p-skeleton>
+            <p-skeleton width="10rem" styleClass="mb-2" [style]="{'margin':'0 0 10px 0'}"></p-skeleton>
+            <p-skeleton width="5rem" styleClass="mb-2" [style]="{'margin':'0 0 10px 0'}"></p-skeleton>
+          </div>
+        </div>
+      </div>
+
+
+
 
     </div>
 
 
 </div>
+
+
+<ng-template #Empty >
+  <div class="empty" *ngIf="empty; else content" >
+    <div class="text">
+      <h1>No Assignments Available!</h1>
+      <button class="button" routerLink="/">
+        <i class="pi pi-heart svg-icon" style="font-size: 1.5rem"></i>
+        <span class="lable">Try New Courses</span>
+      </button>
+    </div>
+  </div>
+</ng-template>

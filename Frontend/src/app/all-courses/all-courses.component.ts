@@ -29,9 +29,14 @@ export class AllCoursesComponent implements OnInit {
     })
 
 
-     this.studenCourses.getEnrolledCourses().subscribe((res)=>{
-        this.courses = res;
-        console.log(res);
+     this.studenCourses.getEnrolledCourses().subscribe((res:any)=>{
+
+        if(res?.message == "You did not enrolled any courses, Please enroll!"){
+          return  this.courses = []
+        }
+
+        console.log(res); 
+        return this.courses = res;
         
      })
       

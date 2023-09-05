@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class StudentService {
 
-  EnrolledCourses = []
+ private EnrolledCourses = []
 
   constructor(private http : HttpClient,private globalServices : GlobalService) { }
 
