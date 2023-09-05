@@ -28,7 +28,7 @@ export class InstructorAssignmentsComponent implements OnInit {
   concept: string = "";
   Levelvalue: string = "";
   loadergenrating : boolean = false;
-
+  empty : boolean = false
 
   levels: any[] = [
     { name: 'Easy', value: 'Easy' },
@@ -54,9 +54,14 @@ export class InstructorAssignmentsComponent implements OnInit {
       'Authorization': token
     });
 
-    this.http.get(`${environment.API_URL}/api/assignment/course/${this.globalService.getInstructorLoginDetails()?.course_id}`, { headers }).subscribe((res) => {
+    this.http.get(`${environment.API_URL}/api/assignment/course/${this.globalService.getInstructorLoginDetails()?.course_id}`, { headers }).subscribe((res:any) => {
+
+      if(res?.message == "No assignments available"){
+        this.empty = true
+      }
+
       this.assignments = res;
-      // console.log(res);
+      console.log(res);
 
     })
   }

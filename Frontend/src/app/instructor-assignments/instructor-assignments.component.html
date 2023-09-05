@@ -10,7 +10,8 @@
         <i class="pi pi-book"></i>
         <span style="margin-left: 5px">Assignments</span>
       </ng-template>
-      <div class="card" *ngFor="let assignment of assignments" [routerLink]="['/instructor/assignments', assignment.id]">
+      <ng-template #content>
+      <div class="card"  *ngFor="let assignment of assignments" [routerLink]="['/instructor/assignments', assignment.id]">
         <div class="img">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -128,6 +129,18 @@
         > -->
 
       </div>
+    </ng-template>
+     
+        <div class="empty" *ngIf="empty; else content" >
+          <div class="text">
+            <h1>No Assignments Available!</h1>
+            <button class="button">
+              <i class="pi pi-heart svg-icon" style="font-size: 1.5rem"></i>
+              <span class="lable">Add Assignments></span>
+            </button>
+          </div>
+        </div>
+      
     </p-tabPanel>
     <p-tabPanel header="Header II">
       <ng-template pTemplate="header">
