@@ -41,6 +41,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InstructorsingleassignComponent } from './instructorsingleassign/instructorsingleassign.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { CourseAssignmentsComponent } from './course-assignments/course-assignments.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { ConfirmationService } from 'primeng/api';
     InstructorDashboardComponent,
     LayoutComponent,
     InstructorsingleassignComponent,
+    CourseAssignmentsComponent,
   ],
   imports: [
     BrowserModule,

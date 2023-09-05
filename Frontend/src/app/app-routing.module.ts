@@ -13,6 +13,7 @@ import { AuthGuard } from './auth.guard';
 import { InstructorDashboardComponent } from './instructor-dashboard/instructor-dashboard.component';
 import { InstructorsingleassignComponent } from './instructorsingleassign/instructorsingleassign.component';
 import { InstructorAuthGuard } from './intructor-auth.guard';
+import { CourseAssignmentsComponent } from './course-assignments/course-assignments.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
   {path: "instructor/assignments", component: InstructorAssignmentsComponent,canActivate:[InstructorAuthGuard]},
   {path: "instructor/assignments/:id", component: InstructorsingleassignComponent,canActivate:[InstructorAuthGuard]},
   {path: "instructor", component: InstructorDashboardComponent},
+  {path: "course-assignments/:courseid", component: CourseAssignmentsComponent},
 
 ];
 

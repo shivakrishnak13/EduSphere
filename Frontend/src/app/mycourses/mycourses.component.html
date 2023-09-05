@@ -18,7 +18,7 @@
   </div>
 
   <ng-template #data>
-    <div class="card" *ngFor="let course of courses">
+    <div class="card" *ngFor="let course of courses" [routerLink]="['/course-assignments',course.id]">
       <div class="header">
         <img src="{{ course.image }}" alt="">
       </div>
