@@ -15,6 +15,7 @@
     align-items: center;
     font-size: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 200;
   }
   
   /* Style for the chatbot icon */

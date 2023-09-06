@@ -44,6 +44,7 @@ import { ConfirmationService } from 'primeng/api';
 import { CourseAssignmentsComponent } from './course-assignments/course-assignments.component';
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { DialogModule } from 'primeng/dialog';
+import { AnnouncementComponent } from './announcement/announcement.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { DialogModule } from 'primeng/dialog';
     InstructorsingleassignComponent,
     CourseAssignmentsComponent,
     ChatbotComponent,
+    AnnouncementComponent,
   ],
   imports: [
     BrowserModule,
