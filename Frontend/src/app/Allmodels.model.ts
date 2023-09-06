@@ -41,6 +41,7 @@ export interface MyCourses {
     name : string
 }
 
+export interface CourseForDrop {id: number, name: string, description: string, image: string, dept_id: number}
 
 export const promptForBot: string = `[act as chatbot]
 

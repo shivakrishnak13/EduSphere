@@ -14,7 +14,7 @@ export class AIService {
     const apiUrl = 'https://api.openai.com/v1/chat/completions'; // Correct API endpoint
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${environment.Ai_Key}`,
+        'Authorization': `Bearer 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`,
     };
     const body = {
         model: 'gpt-3.5-turbo', // You can use 'gpt-3.5-turbo' or other suitable models

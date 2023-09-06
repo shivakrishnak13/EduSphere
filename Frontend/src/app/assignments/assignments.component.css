@@ -196,3 +196,37 @@ input:hover {
     transform: rotate(0deg);
   }
 }
+
+/* Style the reset button */
+.reset {
+  background-color: #007bff; /* Set the background color */
+  color: #fff; /* Set the text color */
+  border: none; /* Remove the border */
+  border-radius: 50%; /* Make it a circular button */
+  width: 40px; /* Set the width */
+  height: 40px; /* Set the height */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease; /* Add a smooth transition for background color */
+}
+
+/* Style the refresh icon inside the button */
+.reset i {
+  font-size: 1.5rem; /* Set the icon size */
+}
+
+/* Change the button color on hover */
+.reset:hover {
+  background-color: #0056b3; /* Change the background color on hover */
+}
+
+
+.flex{
+  width: 350px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+}
