@@ -42,6 +42,8 @@ import { InstructorsingleassignComponent } from './instructorsingleassign/instru
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { CourseAssignmentsComponent } from './course-assignments/course-assignments.component';
+import { ChatbotComponent } from './chatbot/chatbot.component';
+import { DialogModule } from 'primeng/dialog';
 
 
 @NgModule({
@@ -63,6 +65,7 @@ import { CourseAssignmentsComponent } from './course-assignments/course-assignme
     LayoutComponent,
     InstructorsingleassignComponent,
     CourseAssignmentsComponent,
+    ChatbotComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,7 +90,8 @@ import { CourseAssignmentsComponent } from './course-assignments/course-assignme
     MenubarModule,
     SkeletonModule,
     ProgressSpinnerModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    DialogModule
   ],
   providers: [DatePipe,MessageService,ConfirmationService],
   bootstrap: [AppComponent]
