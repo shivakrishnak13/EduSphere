@@ -1,7 +1,7 @@
 <title>My Courses</title>
 
 <div class="main">
-  <div class="skeletonLoad" *ngIf="true">
+  <div class="skeletonLoad" *ngIf="loading; else Empty">
     <div class="card" *ngFor="let i of array">
       <div class="header">
         <p-skeleton width="18rem" height="100%" borderRadius="16px"></p-skeleton>
