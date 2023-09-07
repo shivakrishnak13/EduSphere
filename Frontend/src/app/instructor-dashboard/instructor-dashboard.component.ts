@@ -25,10 +25,10 @@ export class InstructorDashboardComponent implements OnInit{
     const textColor = documentStyle.getPropertyValue('--text-color');
 
         this.data = {
-            labels: ['Submission', 'Not Submited', 'Partially'],
+            labels: ['Partially', 'Not Submited', 'Submission'],
             datasets: [
                 {
-                    data: [60, 30, 10],
+                    data: [10, 30, 60],
                     backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
                     hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
                 }
