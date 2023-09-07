@@ -11,16 +11,23 @@ const { Sequelize } = require("sequelize");
 const { Instructor } = require("../model/instructor.model");
 const { Department } = require("../model/department.model");
 const instructorRouter = express.Router();
+const { authentication } = require("../middlewares/authentication.middleware");
+const { authorize } = require("../middlewares/authorization.middleware");
 
-instructorRouter.get("/api/instructor", async (req, res) => {
-  try {
-    const instructorData = await Instructor.findAll({});
-    res.json(instructorData);
-  } catch (err) {
-    console.error("Error fetching instructors:", err);
-    res.send({ error: err.message });
+instructorRouter.get(
+  "/api/instructor",
+  authentication,
+  authorize(["admin"]),
+  async (req, res) => {
+    try {
+      const instructorData = await Instructor.findAll({});
+      res.json(instructorData);
+    } catch (err) {
+      console.error("Error fetching instructors:", err);
+      res.send({ error: err.message });
+    }
   }
-});
+);
 
 instructorRouter.post("/api/instructor/signup", async (req, res) => {
   try {
@@ -74,7 +81,7 @@ instructorRouter.post("/api/instructor/signin", async (req, res) => {
       email: instructorExist.email,
     };
     const token = jwt.sign(payload, process.env.INSTRUCTOR_SECRET, {
-      expiresIn: "1H",
+      expiresIn: "12H",
     });
 
     res.json({
@@ -82,6 +89,7 @@ instructorRouter.post("/api/instructor/signin", async (req, res) => {
       token: token,
       name: instructorExist.name,
       id: instructorExist.id,
+      course_id: instructorExist.course_id,
     });
   } catch (err) {
     console.error("Error fetching instructors:", err);
@@ -90,26 +98,60 @@ instructorRouter.post("/api/instructor/signin", async (req, res) => {
 });
 
 // get instructor and associated courses
-instructorRouter.get("/api/instructor/course", async (req, res) => {
+instructorRouter.get(
+  "/api/instructor/course",
+  authentication,
+  authorize(["admin"]),
+  async (req, res) => {
+    try {
+      Course.hasOne(Instructor, { foreignKey: "course_id" });
+      Instructor.belongsTo(Course, { foreignKey: "course_id" });
+
+      const instructorData = await Instructor.findAll({
+        attributes: [
+          ["name", "instructor_name"],
+          [sequelize.col("Course.name"), "course_name"],
+        ],
+        include: [
+          {
+            model: Course,
+            attributes: [],
+          },
+        ],
+      });
+      res.json(instructorData);
+    } catch (err) {
+      console.error("Error fetching instructors:", err);
+      res.send({ error: err.message });
+    }
+  }
+);
+
+// -- get all the courses which are not assigned to instructor
+instructorRouter.get("/api/instructor/course/available", async (req, res) => {
   try {
     Course.hasOne(Instructor, { foreignKey: "course_id" });
     Instructor.belongsTo(Course, { foreignKey: "course_id" });
 
-    const instructorData = await Instructor.findAll({
-      attributes: [
-        ["name", "instructor_name"],
-        [sequelize.col("Course.name"), "course_name"],
-      ],
-      include: [
-        {
-          model: Course,
-          attributes: [],
-        },
-      ],
+    const query = `
+          SELECT courses.*
+          FROM courses
+          LEFT JOIN instructors ON courses.id = instructors.course_id
+          WHERE instructors.course_id IS NULL;
+        `;
+
+    const coursesAvailableToAssignInstructor = await sequelize.query(query, {
+      type: Sequelize.QueryTypes.SELECT,
     });
-    res.json(instructorData);
+
+    if (coursesAvailableToAssignInstructor.length === 0)
+      return res.json({
+        message: "No courses available to enroll!",
+      });
+
+    res.json(coursesAvailableToAssignInstructor);
   } catch (err) {
-    console.error("Error fetching instructors:", err);
+    console.error("Error fetching courses:", err);
     res.send({ error: err.message });
   }
 });

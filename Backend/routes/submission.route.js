@@ -9,39 +9,51 @@ const { Sequelize } = require("sequelize");
 const { Instructor } = require("../model/instructor.model");
 const { Department } = require("../model/department.model");
 const submissionRouter = express.Router();
+const { authentication } = require("../middlewares/authentication.middleware");
+const { authorize } = require("../middlewares/authorization.middleware");
 
-submissionRouter.get("/api/submission", async (req, res) => {
-  try {
-    const submissionsData = await Submission.findAll({});
-    res.json(submissionsData);
-  } catch (err) {
-    console.error("Error fetching submissions:", err);
-    res.send({ error: err.message });
+submissionRouter.get(
+  "/api/submission",
+  authentication,
+  authorize(["admin"]),
+  async (req, res) => {
+    try {
+      const submissionsData = await Submission.findAll({});
+      res.json(submissionsData);
+    } catch (err) {
+      console.error("Error fetching submissions:", err);
+      res.send({ error: err.message });
+    }
   }
-});
+);
 
-submissionRouter.post("/api/submission", async (req, res) => {
-  try {
-    const {
-      submission_date,
-      status,
-      assignment_id,
-      student_id,
-      submittedData,
-    } = req.body;
-    const submissions = await Submission.create({
-      submission_date,
-      status,
-      assignment_id,
-      student_id,
-      submittedData,
-    });
-    res.json(submissions);
-  } catch (err) {
-    console.error(err);
-    res.send({ error: err.message });
+submissionRouter.post(
+  "/api/submission",
+  authentication,
+  authorize(["student", "instructor"]),
+  async (req, res) => {
+    try {
+      const {
+        submission_date,
+        status,
+        assignment_id,
+        student_id,
+        submittedData,
+      } = req.body;
+      const submissions = await Submission.create({
+        submission_date,
+        status,
+        assignment_id,
+        student_id,
+        submittedData,
+      });
+      res.json(submissions);
+    } catch (err) {
+      console.error(err);
+      res.send({ error: err.message });
+    }
   }
-});
+);
 
 // get student submissions.
 submissionRouter.get("/api/submission/student", async (req, res) => {
@@ -80,21 +92,25 @@ submissionRouter.get("/api/submission/student", async (req, res) => {
 });
 
 // -- get the submissions based on course(id)
-submissionRouter.get("/api/submissions/course/:id", async (req, res) => {
-  try {
-    Assignment.hasMany(Submission, { foreignKey: "assignment_id" });
-    Submission.belongsTo(Student, { foreignKey: "assignment_id" });
+submissionRouter.get(
+  "/api/submission/course/:id",
+  authentication,
+  authorize(["admin", "instructor"]),
+  async (req, res) => {
+    try {
+      Assignment.hasMany(Submission, { foreignKey: "assignment_id" });
+      Submission.belongsTo(Student, { foreignKey: "assignment_id" });
 
-    Student.hasMany(Enrollment, { foreignKey: "student_id" });
-    Enrollment.belongsTo(Student, { foreignKey: "student_id" });
+      Student.hasMany(Enrollment, { foreignKey: "student_id" });
+      Enrollment.belongsTo(Student, { foreignKey: "student_id" });
 
-    Course.hasMany(Enrollment, { foreignKey: "course_id" });
-    Enrollment.belongsTo(Course, { foreignKey: "course_id" });
+      Course.hasMany(Enrollment, { foreignKey: "course_id" });
+      Enrollment.belongsTo(Course, { foreignKey: "course_id" });
 
-    Course.hasMany(Assignment, { foreignKey: "course_id" });
-    Assignment.belongsTo(Course, { foreignKey: "course_id" });
+      Course.hasMany(Assignment, { foreignKey: "course_id" });
+      Assignment.belongsTo(Course, { foreignKey: "course_id" });
 
-    const query = `
+      const query = `
             SELECT s.name, sb.*
             FROM submissions sb
             JOIN assignments a ON sb.assignment_id = a.id
@@ -105,22 +121,23 @@ submissionRouter.get("/api/submissions/course/:id", async (req, res) => {
             ORDER BY sb.submission_date DESC;
         `;
 
-    const submissionsOfACourse = await sequelize.query(query, {
-      type: Sequelize.QueryTypes.SELECT,
-      replacements: { studentId: req.params.id }, // Replace with the actual student ID
-    });
-
-    if (submissionsOfACourse.length === 0)
-      return res.json({
-        message: "No submissions available.",
+      const submissionsOfACourse = await sequelize.query(query, {
+        type: Sequelize.QueryTypes.SELECT,
+        replacements: { studentId: req.params.id }, // Replace with the actual student ID
       });
 
-    res.json(submissionsOfACourse);
-  } catch (err) {
-    console.error("Error fetching submissions:", err);
-    res.send({ error: err.message });
+      if (submissionsOfACourse.length === 0)
+        return res.json({
+          message: "No submissions available.",
+        });
+
+      res.json(submissionsOfACourse);
+    } catch (err) {
+      console.error("Error fetching submissions:", err);
+      res.send({ error: err.message });
+    }
   }
-});
+);
 
 module.exports = {
   submissionRouter,

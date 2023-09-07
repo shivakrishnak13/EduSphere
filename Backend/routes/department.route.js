@@ -11,6 +11,7 @@ const { Department } = require("../model/department.model");
 const { authentication } = require("../middlewares/authentication.middleware");
 const { authorize } = require("../middlewares/authorization.middleware");
 const departmentRouter = express.Router();
+const { client } = require("../configs/redis");
 
 departmentRouter.get("/api/department", async (req, res) => {
   try {
@@ -47,15 +48,25 @@ departmentRouter.get("/api/department/courses", async (req, res) => {
     Department.hasMany(Course, { foreignKey: "dept_id" });
     Course.belongsTo(Department, { foreignKey: "dept_id" });
 
+    // const cache = await client.get("dept/courses");
+
+    // if (cache !== null) return res.json(JSON.parse(cache));
+
     const departmentCourses = await Department.findAll({
       attributes: ["name"],
       include: {
         model: Course,
         as: "courses",
-        attributes: ["id", "name", "description"], // Select the attributes you want
+        attributes: ["id", "name", "description"],
       },
     });
 
+    // await client.set(
+    //   "dept/courses",
+    //   JSON.stringify(departmentCourses),
+    //   "EX",
+    //   3600
+    // );
     res.json(departmentCourses);
   } catch (err) {
     console.error("Error fetching courses:", err);

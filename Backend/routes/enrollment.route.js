@@ -12,48 +12,58 @@ const { authentication } = require("../middlewares/authentication.middleware");
 const { authorize } = require("../middlewares/authorization.middleware");
 const enrollmentRouter = express.Router();
 
-enrollmentRouter.get("/api/enrollment", async (req, res) => {
-  try {
-    const enrollmentData = await Enrollment.findAll({});
-    res.json(enrollmentData);
-  } catch (err) {
-    console.error("Error fetching enrollments:", err);
-    res.send({ error: err.message });
+enrollmentRouter.get(
+  "/api/enrollment",
+  authentication,
+  authorize(["admin"]),
+  async (req, res) => {
+    try {
+      const enrollmentData = await Enrollment.findAll({});
+      res.json(enrollmentData);
+    } catch (err) {
+      console.error("Error fetching enrollments:", err);
+      res.send({ error: err.message });
+    }
   }
-});
+);
 
 // get all students all enrolled courses with enroll_date
-enrollmentRouter.get("/api/enrollment/student/course", async (req, res) => {
-  try {
-    Enrollment.belongsTo(Student, { foreignKey: "student_id" });
-    Enrollment.belongsTo(Course, { foreignKey: "course_id" });
+enrollmentRouter.get(
+  "/api/enrollment/student/course",
+  authentication,
+  authorize(["admin"]),
+  async (req, res) => {
+    try {
+      Enrollment.belongsTo(Student, { foreignKey: "student_id" });
+      Enrollment.belongsTo(Course, { foreignKey: "course_id" });
 
-    Student.hasMany(Enrollment, { foreignKey: "student_id" });
-    Course.hasMany(Enrollment, { foreignKey: "course_id" });
+      Student.hasMany(Enrollment, { foreignKey: "student_id" });
+      Course.hasMany(Enrollment, { foreignKey: "course_id" });
 
-    const enrollmentData = await Enrollment.findAll({
-      attributes: [
-        [sequelize.col("Student.name"), "student_name"],
-        [sequelize.col("Course.name"), "course_name"],
-        "enroll_date",
-      ],
-      include: [
-        {
-          model: Student,
-          attributes: [],
-        },
-        {
-          model: Course,
-          attributes: [],
-        },
-      ],
-    });
-    res.json(enrollmentData);
-  } catch (err) {
-    console.error("Error fetching enrollments:", err);
-    res.send({ error: err.message });
+      const enrollmentData = await Enrollment.findAll({
+        attributes: [
+          [sequelize.col("Student.name"), "student_name"],
+          [sequelize.col("Course.name"), "course_name"],
+          "enroll_date",
+        ],
+        include: [
+          {
+            model: Student,
+            attributes: [],
+          },
+          {
+            model: Course,
+            attributes: [],
+          },
+        ],
+      });
+      res.json(enrollmentData);
+    } catch (err) {
+      console.error("Error fetching enrollments:", err);
+      res.send({ error: err.message });
+    }
   }
-});
+);
 
 // enrollments
 enrollmentRouter.post(
@@ -63,6 +73,16 @@ enrollmentRouter.post(
   async (req, res) => {
     try {
       const { enroll_date, student_id, course_id } = req.body;
+
+      const isEnrolled = await Enrollment.findOne({
+        where: {
+          student_id: student_id,
+          course_id: course_id,
+        },
+      });
+
+      if (isEnrolled) return res.json({ message: "Already enrolled!" });
+
       const enrollMents = await Enrollment.create({
         enroll_date,
         student_id,
