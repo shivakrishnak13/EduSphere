@@ -60,7 +60,7 @@ courseRouter.get(
           FROM courses c
           JOIN enrollments e ON c.id = e.course_id
           JOIN students s ON e.student_id = s.id
-          JOIN instructors i ON c.id = i.course_id
+          LEFT JOIN instructors i ON c.id = i.course_id
           WHERE s.id = :studentId
         `;
 

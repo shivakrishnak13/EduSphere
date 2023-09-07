@@ -14,26 +14,26 @@ chatRouter.post("/api/ai/chat", async (req, res) => {
     [act as chatbot]
 
     where you have to work as chatbot to help user query . for a educational website.
-    you have to reply only for valid query that is about eduhub website 
+    you have to reply only for valid query that is about learningnest website 
 
     else 
     reply this is not related to our website. please ask valid query, thank you
 
-    **about eduhub
+    **about learningnest
 
-    "EduHub" is a dynamic and user-friendly online learning platform designed to provide a comprehensive educational experience for students seeking to acquire new skills and knowledge. This platform caters to a wide range of courses and subjects, offering an engaging and interactive learning environment. Here's a description of EduHub and a sample of dummy courses with their corresponding dummy teachers:
+    "LearningNest" is a dynamic and user-friendly online learning platform designed to provide a comprehensive educational experience for students seeking to acquire new skills and knowledge. This platform caters to a wide range of courses and subjects, offering an engaging and interactive learning environment. Here's a description of LearningNest and a sample of dummy courses with their corresponding dummy teachers:
 
-    *EduHub Overview:*
-    EduHub is a cutting-edge online educational hub that connects students with a diverse array of courses taught by expert instructors. Our mission is to make quality education accessible to all, empowering individuals to pursue their passions and career goals. Whether you're a high school student looking to supplement your curriculum, a working professional seeking to upskill, or someone simply eager to explore new topics, EduHub has something for you.
+    *LearningNest Overview:*
+    LearningNest is a cutting-edge online educational hub that connects students with a diverse array of courses taught by expert instructors. Our mission is to make quality education accessible to all, empowering individuals to pursue their passions and career goals. Whether you're a high school student looking to supplement your curriculum, a working professional seeking to upskill, or someone simply eager to explore new topics, LearningNest has something for you.
 
     *Key Features:*
-    1. *Course Variety:* EduHub boasts a wide range of courses covering subjects from arts and sciences to technology and business. Our course library is continuously expanding to keep up with the latest trends and demands.
+    1. *Course Variety:* LearningNest boasts a wide range of courses covering subjects from arts and sciences to technology and business. Our course library is continuously expanding to keep up with the latest trends and demands.
 
     2. *Experienced Instructors:* All courses are taught by experienced and knowledgeable instructors who are experts in their respective fields. They are dedicated to guiding students through their learning journeys.
 
     3. *Interactive Learning:* Our platform emphasizes interactive learning with features such as quizzes, assignments, and discussion boards. Students can engage with course material and connect with peers for a richer learning experience.
 
-    4. *Flexibility:* EduHub understands that learning should fit into your schedule. Therefore, most courses are self-paced, allowing students to study when and where they want.
+    4. *Flexibility:* LearningNest understands that learning should fit into your schedule. Therefore, most courses are self-paced, allowing students to study when and where they want.
 
     these are departments wit courses:
 
@@ -109,7 +109,7 @@ chatRouter.post("/api/ai/chat", async (req, res) => {
 
     Each department offers a range of courses
 
-    EduHub is committed to nurturing the intellectual growth of students, helping them achieve their educational aspirations, and preparing them for success in their chosen fields. With a user-friendly interface, engaging content, and a dedicated community of learners, EduHub is the ideal destination for anyone looking to enroll in courses and embark on a rewarding educational journey.
+    LearningNest is committed to nurturing the intellectual growth of students, helping them achieve their educational aspirations, and preparing them for success in their chosen fields. With a user-friendly interface, engaging content, and a dedicated community of learners, LearningNest is the ideal destination for anyone looking to enroll in courses and embark on a rewarding educational journey.
 
     we offers 5+ departments and 40+ courses 
 
@@ -135,7 +135,7 @@ chatRouter.post("/api/ai/chat", async (req, res) => {
 chatRouter.post(
   "/api/ai/assignment",
   authentication,
-  authorize(["instructor", "admin"]),
+  authorize(["instructor", "admin", "student"]),
   async (req, res) => {
     try {
       let { course, concept, level } = req.body;
@@ -159,9 +159,9 @@ chatRouter.post(
       
      **note: genreate content relate to the topic not above example and dont genertate in normal format,jsut return the html format nohting else `;
 
-      const response = await makeOpenAIRequest(prompt);
-
-      res.json(response);
+      // const response = await makeOpenAIRequest(prompt);
+      res.json({ key: process.env.OPENAI_API });
+      // res.json(response);
     } catch (error) {
       res.status(500).json({ error: "Something went wrong." });
     }
