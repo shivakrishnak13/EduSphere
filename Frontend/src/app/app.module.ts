@@ -47,6 +47,9 @@ import { DialogModule } from 'primeng/dialog';
 import { AnnouncementComponent } from './announcement/announcement.component';
 import { TableModule } from 'primeng/table';
 import { ChartModule } from 'primeng/chart';
+import { InstructorAnnouncementComponent } from './instructor-announcement/instructor-announcement.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TimeAgoPipe } from './time-ago.pipe';
 
 
 @NgModule({
@@ -70,6 +73,9 @@ import { ChartModule } from 'primeng/chart';
     CourseAssignmentsComponent,
     ChatbotComponent,
     AnnouncementComponent,
+    InstructorAnnouncementComponent,
+    TimeAgoPipe,
+    
   ],
   imports: [
     BrowserModule,
@@ -97,7 +103,8 @@ import { ChartModule } from 'primeng/chart';
     ConfirmDialogModule,
     DialogModule,
     TableModule,
-    ChartModule
+    ChartModule,
+    InputTextModule
   ],
   providers: [DatePipe,MessageService,ConfirmationService],
   bootstrap: [AppComponent]

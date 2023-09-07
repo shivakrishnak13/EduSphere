@@ -10,11 +10,11 @@ export class AIService {
 
   constructor(private http : HttpClient) { }
 
-  public async makeOpenAIRequest(prompt: string) {
+  public async makeOpenAIRequest(token:string,prompt: string) {
     const apiUrl = 'https://api.openai.com/v1/chat/completions'; // Correct API endpoint
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer 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`,
+        'Authorization': `Bearer ${token}`,
     };
     const body = {
         model: 'gpt-3.5-turbo', // You can use 'gpt-3.5-turbo' or other suitable models

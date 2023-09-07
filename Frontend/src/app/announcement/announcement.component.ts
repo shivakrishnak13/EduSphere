@@ -1,24 +1,21 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component,OnInit } from '@angular/core';
+import { GlobalService } from '../global.service';
 
 @Component({
   selector: 'app-announcement',
   templateUrl: './announcement.component.html',
   styleUrls: ['./announcement.component.css']
 })
-export class AnnouncementComponent {
-  announcements = [
-    {
-      title: 'Important Announcement 1',
-      time: '2 hours ago',
-    },
-    {
-      title: 'Event Reminder',
-      time: '1 day ago',
-    },
-    {
-      title: 'Upcoming Workshop',
-      time: '3 days ago',
-    },
-    // Add more announcements as needed
-  ];
+export class AnnouncementComponent implements OnInit {
+
+  announcements : any | undefined
+
+  constructor (private http : HttpClient,private globalservice : GlobalService){}
+
+  ngOnInit(): void {
+    
+  }
+
+  
 }

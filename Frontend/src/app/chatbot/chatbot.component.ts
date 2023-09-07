@@ -2,6 +2,8 @@ import { Component,ViewChild, ElementRef, AfterViewChecked,Input,OnInit } from '
 import { GlobalService } from '../global.service';
 import { AIService } from '../ai.service';
 import { promptForBot } from '../Allmodels.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-chatbot',
@@ -12,13 +14,18 @@ export class ChatbotComponent implements AfterViewChecked , OnInit {
   @ViewChild('chatContainer') private chatContainer!: ElementRef;
   @Input() data: any;
   chatMessages: { text: string, isUser: boolean }[] = [];
-  constructor (private globalservece : GlobalService,private AiService : AIService) {}
+  constructor (private globalservice : GlobalService,private AiService : AIService,private http: HttpClient) {}
 
   visible: boolean = false;
  
   
   ngOnInit(): void {
     this.chatMessages.push({text :`Hello! ${this.data || 'User'}`,isUser:false},{text :'Welcome to EduHub',isUser:false},{text :'How can I assist you today?',isUser:false})
+
+
+    
+
+
   }
   
   
@@ -44,21 +51,27 @@ export class ChatbotComponent implements AfterViewChecked , OnInit {
       // Simulate a bot response (you can replace this with actual chatbot logic)
       userMessage.value = '';
 
-        let prompt = `${promptForBot}
-        
+      
+      
 
-        this below one is the question please reply from above content if its not matched reply a short message and content should be  short and concise.
+      let messageForBot = {
+        message : messageText
+      }
 
-        question : ${messageText}
-        
-        `
-        
-        console.log(prompt);
-        
-        const res = await this.AiService.makeOpenAIRequest(prompt)
 
-      const botResponse =res;
-      this.chatMessages.push({ text: botResponse, isUser: false });
+      console.log(messageText);
+      
+      
+      let botResponse ="";
+       this.http.post(`${environment.API_URL}/api/ai/chat`, messageForBot).subscribe((res:any)=>{
+        console.log('response',res);
+        botResponse = res?.message
+        this.chatMessages.push({ text:  res?.message, isUser: false });
+        
+       })
+        
+       
+
       userMessage.value = '';
       messageText = "";
     }

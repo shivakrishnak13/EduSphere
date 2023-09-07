@@ -28,7 +28,7 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": ["../node_modules/chart.js/dist/chart.js"]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -99,7 +99,7 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": ["../node_modules/chart.js/dist/chart.js"]
+            "scripts": []
           }
         }
       }

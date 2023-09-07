@@ -13,7 +13,8 @@ export class InstructorDashboardComponent implements OnInit{
   students : any | undefined;
   data: any;
   options: any;
-
+  empty : boolean = false;
+  signin : boolean = false;
   constructor (private http: HttpClient,private globalService : GlobalService ) {}
 
   ngOnInit(): void {
@@ -56,9 +57,18 @@ export class InstructorDashboardComponent implements OnInit{
       'Authorization': token
     });
 
-    this.http.get(`${environment.API_URL}/api/student/course/instructor/${this.globalService.getInstructorLoginDetails()?.id}`,{headers}).subscribe((data) => {
-    this.students = data
-    console.log(data);
+    this.http.get(`${environment.API_URL}/api/student/course/instructor/${this.globalService.getInstructorLoginDetails()?.id}`,{headers}).subscribe((data:any) => {
+    
+      console.log(data,'data');
+      if(data.message == 'No students enrolled to this course.'){
+        this.empty = true;
+        return this.students =[]
+      }else if(data.message == 'Please provide token'){
+        this.signin = true
+        this.empty = true;
+          return this.students = []
+      }
+     return this.students = data
     });
   }
 

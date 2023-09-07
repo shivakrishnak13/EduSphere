@@ -15,6 +15,7 @@ import { InstructorsingleassignComponent } from './instructorsingleassign/instru
 import { InstructorAuthGuard } from './intructor-auth.guard';
 import { CourseAssignmentsComponent } from './course-assignments/course-assignments.component';
 import { AnnouncementComponent } from './announcement/announcement.component';
+import { InstructorAnnouncementComponent } from './instructor-announcement/instructor-announcement.component';
 
 
 const routes: Routes = [
@@ -27,11 +28,11 @@ const routes: Routes = [
   {path: "instructor/signup", component: InstructorSignupComponent},
   {path: "instructor/signin", component: InstructorSigninComponent},
   {path: "instructor/assignments", component: InstructorAssignmentsComponent,canActivate:[InstructorAuthGuard]},
+  {path: "instructor/announcements", component: InstructorAnnouncementComponent,canActivate:[InstructorAuthGuard]},
   {path: "instructor/assignments/:id", component: InstructorsingleassignComponent,canActivate:[InstructorAuthGuard]},
   {path: "instructor", component: InstructorDashboardComponent},
   {path: "course-assignments/:courseid", component: CourseAssignmentsComponent},
   {path: "announcements", component: AnnouncementComponent},
-
 ];
 
 @NgModule({
