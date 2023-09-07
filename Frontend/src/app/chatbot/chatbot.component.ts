@@ -20,7 +20,7 @@ export class ChatbotComponent implements AfterViewChecked , OnInit {
  
   
   ngOnInit(): void {
-    this.chatMessages.push({text :`Hello! ${this.data || 'User'}`,isUser:false},{text :'Welcome to EduHub',isUser:false},{text :'How can I assist you today?',isUser:false})
+    this.chatMessages.push({text :`Hello! ${this.data || 'User'}`,isUser:false},{text :'Welcome to LearningNest',isUser:false},{text :'How can I assist you today?',isUser:false})
 
 
     
