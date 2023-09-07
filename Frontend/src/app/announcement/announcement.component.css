@@ -38,3 +38,14 @@
     color: #777;
   }
   
+
+  .empty{
+    width: 70%;
+    height: 800px;
+    margin: auto ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

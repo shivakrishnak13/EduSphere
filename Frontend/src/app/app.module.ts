@@ -45,6 +45,8 @@ import { CourseAssignmentsComponent } from './course-assignments/course-assignme
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { DialogModule } from 'primeng/dialog';
 import { AnnouncementComponent } from './announcement/announcement.component';
+import { TableModule } from 'primeng/table';
+import { ChartModule } from 'primeng/chart';
 
 
 @NgModule({
@@ -93,7 +95,9 @@ import { AnnouncementComponent } from './announcement/announcement.component';
     SkeletonModule,
     ProgressSpinnerModule,
     ConfirmDialogModule,
-    DialogModule
+    DialogModule,
+    TableModule,
+    ChartModule
   ],
   providers: [DatePipe,MessageService,ConfirmationService],
   bootstrap: [AppComponent]

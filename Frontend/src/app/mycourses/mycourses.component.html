@@ -4,7 +4,7 @@
   <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;" *ngIf="loading; else Empty">
     <div class="card" *ngFor="let i of array">
       <div class="header">
-        <p-skeleton width="360px" height="100%" borderRadius="16px"></p-skeleton>
+        <p-skeleton width="18rem" height="100%" borderRadius="16px"></p-skeleton>
       </div>
       <div class="content" style="margin-top: 40px;">
         <p-skeleton styleClass="mb-2" [style]="{'margin-top': '10px', 'height': '12px'}" borderRadius="12px"></p-skeleton>
