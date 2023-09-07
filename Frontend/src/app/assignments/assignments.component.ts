@@ -80,20 +80,21 @@ export class AssignmentsComponent implements OnInit {
 
 
   handleFilter(){
-    
     const token = this.globalService.getStudentLoginDetails()?.token ?? '';
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': token
     });
-    console.log(`${environment.API_URL}/api/assignment/student/${this.globalService.getStudentLoginDetails()?.id}?${this.searchvalue}`,{headers});
+    
     
     this.http.get(`${environment.API_URL}/api/assignment/student/${this.globalService.getStudentLoginDetails()?.id}?course=${this.selectedCourses?.name}`,{headers}).subscribe((res:any)=>{
       console.log(res);
+      this.NoAssignmnetbool =false;
       if(res.message == 'No assignments found with given course!'){
          return this.NoAssignmnetbool =true;
 
        }
+       
        return this.assignments = res
     })
     

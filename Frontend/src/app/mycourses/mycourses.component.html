@@ -1,7 +1,7 @@
 <title>My Courses</title>
 
 <div class="main">
-  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;" *ngIf="loading; else Empty">
+  <div class="skeletonLoad" *ngIf="true">
     <div class="card" *ngFor="let i of array">
       <div class="header">
         <p-skeleton width="18rem" height="100%" borderRadius="16px"></p-skeleton>

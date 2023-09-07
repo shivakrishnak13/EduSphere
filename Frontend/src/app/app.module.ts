@@ -50,6 +50,7 @@ import { ChartModule } from 'primeng/chart';
 import { InstructorAnnouncementComponent } from './instructor-announcement/instructor-announcement.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TimeAgoPipe } from './time-ago.pipe';
+import { SingleAnnouncementComponent } from './single-announcement/single-announcement.component';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { TimeAgoPipe } from './time-ago.pipe';
     AnnouncementComponent,
     InstructorAnnouncementComponent,
     TimeAgoPipe,
+    SingleAnnouncementComponent,
     
   ],
   imports: [
