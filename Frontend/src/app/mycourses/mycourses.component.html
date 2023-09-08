@@ -38,11 +38,13 @@
 <ng-template #Empty >
   <div class="empty" *ngIf="empty; else data" >
     <div class="text">
-      <h1>No Courses Enrolled!</h1>
-      <button class="button" routerLink="/">
-        <i class="pi pi-heart svg-icon" style="font-size: 1.5rem"></i>
-        <span class="lable">Enroll Now</span>
-      </button>
+      <ng-container *ngIf="isLogin; else noStudents">
+        Your Session has Expired.
+        Please <a href="/sign-in">Login</a> to View Your Courses
+      </ng-container>
+      <ng-template #noStudents>
+        No Courses Enrolled!
+      </ng-template>
     </div>
   </div>
 </ng-template>

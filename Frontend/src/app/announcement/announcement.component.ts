@@ -12,6 +12,8 @@ export class AnnouncementComponent implements OnInit {
 
   announcements : any | undefined;
   noAnnouncements : boolean = false;
+  isLogin : boolean = false;
+
 
   constructor (private http : HttpClient,private globalservice : GlobalService){}
 
@@ -29,6 +31,12 @@ export class AnnouncementComponent implements OnInit {
     });
     this.http.get(`${environment.API_URL}/api/announcement/student/${this.globalservice.getStudentLoginDetails()?.id}`,{headers}).subscribe((res:any)=>{
       console.log(res);
+
+      if(res.message == "Session expired, Please login."){
+        this.isLogin=true;
+        this.noAnnouncements= true
+        return this.announcements = []
+      }
       
      return  this.announcements = res;
     },

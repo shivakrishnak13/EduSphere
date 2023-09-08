@@ -19,7 +19,7 @@ export class SignInComponent implements OnInit {
 
   constructor(private http: HttpClient, private studentLogin: GlobalService, private messageService: MessageService,private router: Router) { }
   ngOnInit(): void {
-    console.log({ studentlogin: this.studentLogin.isStudentLogin });
+   
 
   }
 

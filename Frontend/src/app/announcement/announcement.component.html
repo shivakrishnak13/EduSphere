@@ -19,7 +19,13 @@
   <ng-template #Empty >
     <div class="empty"  >
       <div class="text">
-        <h1>No Announcements Available!</h1>
+        <ng-container *ngIf="isLogin; else noStudents">
+          Your Session has Expired.
+          Please <a href="/sign-in">Login</a> to View Your Announcements
+        </ng-container>
+        <ng-template #noStudents>
+          <h1>No Announcements Available!</h1>
+        </ng-template>
       </div>
     </div>
   </ng-template>

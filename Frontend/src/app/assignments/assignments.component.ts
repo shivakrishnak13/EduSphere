@@ -24,6 +24,7 @@ export class AssignmentsComponent implements OnInit {
   empty : boolean = false;
   searchvalue : string = "";
   NoAssignmnetbool : boolean = false;
+  isLogin : boolean = false;
 
   constructor(private globalService : GlobalService,private datePipe: DatePipe,private http : HttpClient,private messageService: MessageService,private router : Router,private route: ActivatedRoute) {}
 
@@ -49,6 +50,10 @@ export class AssignmentsComponent implements OnInit {
       this.loading = true
       if(res.message == "You did not have any assignments!"){
        return this.empty =true;
+      }else if(res.message == "Session expired, Please login."){
+        this.empty = true;
+        return this.isLogin = true
+
       }
 
       // console.log(res); 
