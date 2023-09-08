@@ -73,13 +73,20 @@ export class InstructorAssignmentsComponent implements OnInit {
     });
 
     this.http.get(`${environment.API_URL}/api/assignment/course/${this.globalService.getInstructorLoginDetails()?.course_id}`, { headers }).subscribe((res:any) => {
-
+        console.log(res);
+        
       if(res?.message == "No assignments available"){
-        this.empty = true
+          this.assignments = [];
+          return this.empty = true
+      }else if(res?.message == 'Session expired, Please login.'){
+        this.messageService.add({ key: 'tc', severity: 'info', summary: 'Session Expired', detail: res?.message })
+        this.globalService.instructorlogout();
+        window.location.reload()
+       return this.router.navigate(['instructor/signin']);
       }
 
-      this.assignments = res;
-      console.log(res);
+
+     return this.assignments = res;
 
     })
   }

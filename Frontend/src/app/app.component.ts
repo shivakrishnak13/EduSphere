@@ -13,6 +13,7 @@ export class AppComponent {
   isInstructor: boolean = false;
   instructorName : string  = this.getinstructorname();
   StudentName : string  =this.getstudentname();
+  nameforbot : string = "User"
 
   constructor(private router: Router,private route: ActivatedRoute,private globalserveice : GlobalService) {
     router.events.subscribe(event => {
@@ -35,7 +36,15 @@ export class AppComponent {
 
   ngOnInit(): void {
    
+    if(this.isStudent){
+      this.nameforbot = this.StudentName
+    }else if(this.isInstructor){
+      this.nameforbot = this.instructorName
+    }else{
+      this.nameforbot = 'User'
+    }
    
+
     
   }
 
