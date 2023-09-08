@@ -113,6 +113,8 @@ assignmentRouter.get(
   authorize(["student", "instructor", "admin"]),
   async (req, res) => {
     try {
+      const { course, assignment } = req.query;
+
       Student.hasMany(Enrollment, { foreignKey: "student_id" });
       Enrollment.belongsTo(Student, { foreignKey: "student_id" });
 
@@ -126,19 +128,41 @@ assignmentRouter.get(
       Assignment.belongsTo(Course, { foreignKey: "course_id" });
 
       const query = `
-            SELECT a.*, c.name, sb.submission_date, sb.status
-            FROM assignments a
-            JOIN courses c ON a.course_id = c.id
-            JOIN enrollments e ON c.id = e.course_id
-            JOIN students s ON e.student_id = s.id
-            JOIN submissions sb ON s.id = sb.student_id
-            WHERE s.id = :studentId
+          SELECT a.*, c.name AS course, sub.submission_date, sub.status
+          FROM assignments a
+          JOIN courses c ON a.course_id = c.id
+          JOIN enrollments e ON c.id = e.course_id
+          JOIN students s ON e.student_id = s.id
+          LEFT JOIN (
+            SELECT assignment_id, student_id, submission_date, status,
+                  ROW_NUMBER() OVER (PARTITION BY assignment_id, student_id ORDER BY submission_date DESC) AS rn
+            FROM submissions
+          ) sub ON a.id = sub.assignment_id AND s.id = sub.student_id AND sub.rn = 1
+          WHERE s.id = :studentId ${course || assignment ? applyFilters() : ``}
         `;
+
+      function applyFilters() {
+        if (course) {
+          return `AND LOWER(c.name) LIKE LOWER("%${course}%");`;
+        }
+
+        return `AND LOWER(a.title) LIKE LOWER("%${assignment}%");`;
+      }
 
       const studentAssignmentData = await sequelize.query(query, {
         type: Sequelize.QueryTypes.SELECT,
         replacements: { studentId: req.params.id }, // Replace with the actual student ID
       });
+
+      if (course && studentAssignmentData.length === 0)
+        return res.json({
+          message: "No assignments found with given course!",
+        });
+
+      if (assignment && studentAssignmentData.length === 0)
+        return res.json({
+          message: "No assignments found with given assignment's title!",
+        });
 
       if (studentAssignmentData.length === 0)
         return res.json({
@@ -153,17 +177,104 @@ assignmentRouter.get(
   }
 );
 
+// get an assignment with its submission details
+assignmentRouter.get(
+  "/api/assignment/:aID/student/:sID",
+  authorize(["student", "instructor", "admin"]),
+  async (req, res) => {
+    try {
+      const { sID, aID } = req.params;
+
+      const query = `
+      SELECT a.*, sub.submission_date, sub.status, sub.submittedData
+      FROM assignments a
+      JOIN enrollments e ON a.course_id = e.course_id
+      JOIN students s ON e.student_id = s.id
+      LEFT JOIN submissions sub ON sub.assignment_id = a.id
+      WHERE a.id = :assignmentId AND s.id = :studentId
+      ORDER BY submission_date DESC
+      LIMIT 1;
+      `;
+
+      /*
+      SELECT a.*, s.submission_date, s.status, s.submittedData
+            FROM assignments a
+            LEFT JOIN (
+                SELECT assignment_id, MAX(submission_date) AS latest_submission_date
+                FROM submissions
+                WHERE assignment_id = :assignmentId
+                GROUP BY assignment_id
+            ) ls ON a.id = ls.assignment_id
+            LEFT JOIN submissions s ON a.id = s.assignment_id AND s.submission_date = ls.latest_submission_date
+            WHERE a.id = :assignmentId;
+
+      SELECT a.*, s.submission_date, s.status, s.submittedData
+        FROM submissions s
+        JOIN assignments a ON s.assignment_id = a.id
+        WHERE a.id = :assignmentId AND s.student_id = :studentId
+        ORDER BY submission_date DESC
+        LIMIT 1;
+      */
+      const assignment = await sequelize.query(query, {
+        type: Sequelize.QueryTypes.SELECT,
+        replacements: { assignmentId: aID, studentId: sID },
+      });
+
+      if (assignment.length === 0)
+        return res.status(404).json({ message: "No assignment found!" });
+
+      return res.json(assignment);
+    } catch (error) {
+      console.log("Error fetching assignment:".error);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+);
+
+// get a single assignment
+assignmentRouter.get(
+  "/api/assignment/:id",
+  authorize(["instructor", "admin"]),
+  async (req, res) => {
+    try {
+      const isAssignmentExist = await Assignment.findOne({
+        where: {
+          id: req.params.id,
+        },
+      });
+
+      if (!isAssignmentExist)
+        return res.status(404).json({ message: "Assignment does not exist." });
+
+      res.json(isAssignmentExist);
+    } catch (err) {
+      console.error("Error fetching assignments:", err);
+      res.send({ error: err.message });
+    }
+  }
+);
+
 // delete an assignment
 assignmentRouter.delete(
   "/api/assignment/:id",
   authorize(["instructor", "admin"]),
   async (req, res) => {
     try {
+      const isAssignmentExist = await Assignment.findOne({
+        where: {
+          id: req.params.id,
+        },
+      });
+
+      if (!isAssignmentExist)
+        return res.status(404).json({ message: "Assignment does not exist." });
+
       await Assignment.destroy({
         where: {
           id: req.params.id,
         },
       });
+
       res.json({ message: "Assignment Deleted." });
     } catch (err) {
       console.error("Error fetching assignments:", err);
@@ -182,6 +293,15 @@ assignmentRouter.patch(
 
       if (updatedAssignment.id)
         return res.json({ message: "Exclude the assignment id!" });
+
+      const isAssignmentExist = await Assignment.findOne({
+        where: {
+          id: req.params.id,
+        },
+      });
+
+      if (!isAssignmentExist)
+        return res.status(404).json({ message: "Assignment does not exist." });
 
       await Assignment.update(updatedAssignment, {
         where: {
