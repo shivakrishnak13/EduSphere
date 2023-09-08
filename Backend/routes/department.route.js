@@ -11,7 +11,6 @@ const { Department } = require("../model/department.model");
 const { authentication } = require("../middlewares/authentication.middleware");
 const { authorize } = require("../middlewares/authorization.middleware");
 const departmentRouter = express.Router();
-const { client } = require("../configs/redis");
 
 departmentRouter.get("/api/department", async (req, res) => {
   try {

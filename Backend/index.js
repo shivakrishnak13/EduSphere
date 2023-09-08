@@ -1,14 +1,7 @@
 const express = require("express");
+const app = express();
+const cors = require("cors");
 const { sequelize } = require("./configs/db");
-const { Student } = require("./model/student.model");
-const jwt = require("jsonwebtoken");
-const { Department } = require("./model/department.model");
-const { Course } = require("./model/course.model");
-const { Enrollment } = require("./model/enrollment.model");
-const { Instructor } = require("./model/instructor.model");
-const { Assignment } = require("./model/assignment.model");
-const { Submission } = require("./model/submissions.model");
-const { Sequelize } = require("sequelize");
 const { studentRouter } = require("./routes/student.route");
 const { assignmentRouter } = require("./routes/assignment.route");
 const { courseRouter } = require("./routes/course.route");
@@ -16,11 +9,11 @@ const { departmentRouter } = require("./routes/department.route");
 const { enrollmentRouter } = require("./routes/enrollment.route");
 const { instructorRouter } = require("./routes/instructor.route");
 const { submissionRouter } = require("./routes/submission.route");
+const { announcementRouter } = require("./routes/announcement.route");
+const { chatRouter } = require("./routes/chat.route");
 
-const app = express();
-
+app.use(cors());
 app.use(express.json());
-app.use(require("cors")());
 
 app.get("/", async (req, res) => {
   try {
@@ -31,12 +24,14 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.use("", chatRouter);
 app.use("", studentRouter);
 app.use("", courseRouter);
 app.use("", departmentRouter);
 app.use("", enrollmentRouter);
 app.use("", instructorRouter);
 app.use("", submissionRouter);
+app.use("", announcementRouter);
 app.use("", assignmentRouter);
 
 sequelize
@@ -50,3 +45,7 @@ sequelize
   .catch((err) => {
     console.log(err);
   });
+
+
+
+module.exports = app;

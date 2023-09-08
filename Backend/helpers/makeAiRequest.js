@@ -13,7 +13,7 @@ async function makeOpenAIRequest(prompt) {
       {
         role: "system",
         content:
-          "You are a senior backend developer assisting with OpenAI chat completions.",
+          "You are a senior educational tutor assisting with OpenAI chat completions.",
       },
       {
         role: "user",
