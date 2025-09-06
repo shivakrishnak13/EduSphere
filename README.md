@@ -145,4 +145,4 @@ I'd also like to mention that I received valuable assistance from an AI model du
 
 Thank you for the opportunity to work on EduHub, and I look forward to applying these newfound skills to future projects and endeavors.
 
-*Note: This individual project was developed in just 8 days.*
+*Note: This collabrative project with a team of 4 was developed in just 4 days.*
